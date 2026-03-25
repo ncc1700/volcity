@@ -5,8 +5,16 @@ target("volcity")
 
     add_includedirs("includes")
 
-    -- common source files
+    -- TODO: make it so we add files via the platform and
+    -- architecture and drivers people want via
+    -- xmake cmdline arguments
+
+    -- common kernel source files
     add_files("src/*.c")
+
+    -- architecture specific source files
+    add_files("src/arch/arm64/*.asm", 
+              "src/arch/arm64/*.c")
 
     -- platform specific source files
     add_files("src/platform/qvirt-arm64/*.asm", 
