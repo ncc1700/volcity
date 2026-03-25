@@ -1,7 +1,6 @@
 #include <types.h>
 #include <platform/platform.h>
 #include <coredev/uart.h>
-#include <platform/qvirt-arm64/platdef.h>
 
 
 
