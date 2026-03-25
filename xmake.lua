@@ -11,6 +11,9 @@ target("volcity")
     -- platform specific source files
     add_files("src/platform/qvirt-arm64/*.asm", 
               "src/platform/qvirt-arm64/*.c")
+    
+    -- core device drivers we include
+    add_files("src/coredev/pl011/*.c")
 
     add_cflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
     add_asflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
