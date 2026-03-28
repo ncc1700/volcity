@@ -1,6 +1,6 @@
 target("volkrnl-qvirt-aarch64")
     set_toolchains("clang-arm64")
-    set_targetdir("output/core")
+    set_targetdir("../output/core")
     set_filename("volkrnl.elf")
 
     add_includedirs("includes")
@@ -21,7 +21,7 @@ target("volkrnl-qvirt-aarch64")
               "src/platform/qvirt-arm64/*.c")
     
     -- core device drivers we include
-    add_files("src/coredev/pl011/*.c")
+    add_files("src/coredev/uart/pl011/*.c")
 
     add_cflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
     add_asflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
