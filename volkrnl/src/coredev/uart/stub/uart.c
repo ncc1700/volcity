@@ -5,15 +5,15 @@ boolean uart_setup(u64 baseAddr){
     return true;
 }
 
-void uart_putchar(u8 c){
+void uart_putchar(char c){
     return;
 }
 
-u8 uart_getchar(){
+char uart_getchar(){
     return '\0';
 }
 
-void uart_cprint(u8* string){
+void uart_cprint(char* string){
     return;
 }
 

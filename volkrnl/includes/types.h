@@ -35,7 +35,7 @@ typedef unsigned int u32;
 typedef int i32;
 
 typedef unsigned long u64;
-typedef long i64;
+typedef long i64; 
 
 typedef u8 boolean;
 
@@ -48,6 +48,7 @@ typedef double f64;
 #define FALSE (0)
 #define NULL ((void*)0)
 
+typedef u64 size_t;
 
 
 

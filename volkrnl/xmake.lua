@@ -1,31 +1,30 @@
-target("volkrnl-qvirt-arm64")
+target("qvirt-arm64")
     set_toolchains("clang-arm64")
     set_targetdir("../output/core")
     set_filename("volkrnl.elf")
-
     add_includedirs("includes")
-
-    -- TODO: make it so we add files via the platform and
-    -- architecture and drivers people want via
-    -- xmake cmdline arguments
-
-    -- common kernel source files
-    add_files("src/*.c")
-
-    -- architecture specific source files
-    -- add_files("src/arch/arm64/*.asm", 
-    --           "src/arch/arm64/*.c")
-
-    -- platform specific source files
+    add_files("src/*.c", "src/rtl/*.c")
     add_files("src/platform/qvirt-arm64/*.asm", 
-              "src/platform/qvirt-arm64/*.c")
-    
-    -- core device drivers we include
+              "src/platform/qvirt-arm64/*.c")    
     add_files("src/coredev/uart/pl011/*.c")
 
     add_cflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
     add_asflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
     add_ldflags("-nostdlib -Tlinker/qvirt-arm64/linker.ld", {force = true})
+
+target("stub")
+    set_toolchains("clang-arm64")
+    set_targetdir("../output/core")
+    set_filename("volkrnl.elf")
+    add_includedirs("includes")
+    add_files("src/*.c")
+    add_files("src/platform/stub/*.asm", 
+              "src/platform/stub/*.c")    
+    add_files("src/coredev/uart/stub/*.c")
+
+    add_cflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
+    add_asflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
+    add_ldflags("-nostdlib -Tlinker/stub/linker.ld", {force = true})
 
 toolchain("clang-arm64")
     set_kind("standalone")

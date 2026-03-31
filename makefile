@@ -1,5 +1,8 @@
 qvirt-arm64:
-	cd volkrnl && xmake build volkrnl-qvirt-arm64
+	cd volkrnl && xmake build qvirt-arm64
+
+stub:
+	cd volkrnl && xmake build qvirt-arm64
 
 
 initfs:
@@ -11,7 +14,7 @@ qemu-arm64:
 	qemu-system-aarch64 -cpu cortex-a55 -machine virt -kernel \
 		output/core/volkrnl.elf -initrd initfs.tar -m 4M \
 		-device ramfb -serial mon:stdio -display sdl
-
+	
 clean:
 	cd volkrnl && make clean
 	rm -rf output
