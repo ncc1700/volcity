@@ -6,18 +6,19 @@ static u64 base = 0;
 
 boolean uart_setup(u64 baseAddr){
     base = baseAddr;
+    return TRUE;
 }
 
-void uart_putchar(u8 c){
+void uart_putchar(char c){
     *(u8*)base = c;
 }
 
-u8 uart_getchar(){
+char uart_getchar(){
     return *(u8*)base;
 }
 
-void uart_cprint(u8* string){
-    u8* s = string;
+void uart_cprint(char* string){
+    char* s = string;
     while(*s != '\0'){
         uart_putchar(*s);
         s++;

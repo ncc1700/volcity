@@ -5,12 +5,11 @@
 
 #ifndef _NOSTDINC
 
-
 #include <stdint.h>
 #include <stdbool.h>
 
 
-typedef uint8_t u8 ;
+typedef uint8_t u8;
 typedef int8_t i8;
 
 typedef uint16_t u16;
@@ -25,6 +24,7 @@ typedef int64_t i64;
 typedef bool boolean;
 
 #else
+
 typedef unsigned char u8;
 typedef char i8;
 
@@ -38,6 +38,7 @@ typedef unsigned long u64;
 typedef long i64;
 
 typedef u8 boolean;
+
 #endif
 
 typedef float f32;
