@@ -25,7 +25,7 @@ void uart_cprint(char* string){
     }
 }
 
-void uart_print(void){
-    // TODO: implement for safe string
-    return;
-}
+// void uart_print(String* str){
+//
+//     return;
+// }

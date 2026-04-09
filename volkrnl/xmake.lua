@@ -8,8 +8,8 @@ target("qvirt-arm64")
               "src/platform/qvirt-arm64/*.c")    
     add_files("src/coredev/uart/pl011/*.c")
 
-    add_cflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
-    add_asflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
+    add_cflags("-target aarch64-none-elf -ffreestanding -nostdlib -Wall", {force = true})
+    add_asflags("-target aarch64-none-elf -ffreestanding -nostdlib -Wall", {force = true})
     add_ldflags("-nostdlib -Tlinker/qvirt-arm64/linker.ld", {force = true})
 
 target("stub")
@@ -22,8 +22,8 @@ target("stub")
               "src/platform/stub/*.c")    
     add_files("src/coredev/uart/stub/*.c")
 
-    add_cflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
-    add_asflags("-target aarch64-none-elf -ffreestanding -nostdlib", {force = true})
+    add_cflags("-target aarch64-none-elf -ffreestanding -nostdlib -Wall", {force = true})
+    add_asflags("-target aarch64-none-elf -ffreestanding -nostdlib -Wall", {force = true})
     add_ldflags("-nostdlib -Tlinker/stub/linker.ld", {force = true})
 
 toolchain("clang-arm64")
