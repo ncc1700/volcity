@@ -56,6 +56,9 @@ void rtl_dec_to_cstring(const u64 number, char* src, u64 len){
         src[index] = digit + '0';
         num -= (amount * digit);
     }
+    if(index == 0 && index < (len - 1)){
+        src[index] = '0';
+    }
     src[index] = '\0';
 }
 
@@ -158,5 +161,10 @@ void rtl_hex_to_cstring(const u64 number, char* src, u64 len){
         } else src[index] = hex_to_char(digit);
         num -= (amount * digit);
     }
+    if(index == 0 && index < (len - 1)){
+        src[index] = '0';
+        index++;
+    }
     src[index] = '\0';
 }
+
