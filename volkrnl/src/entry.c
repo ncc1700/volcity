@@ -8,7 +8,7 @@ void k_entry(void* devTreeLoc){
     u64 addr = (u64)devTreeLoc;
     plat_setup();
     int i = 0;
-    u64* h = (u64*)0x40000;
+    u64* h = (u64*)0x40000000;
     while(1){
         char temp[2];
         temp[0] = h[i];

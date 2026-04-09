@@ -13,9 +13,7 @@ qemu-arm64:
 	make initfs
 	qemu-system-aarch64 -cpu cortex-a55 -machine virt \
 		-kernel output/core/volkrnl.elf -initrd initfs.tar -m 4M \
-		-device ramfb -serial mon:stdio -display sdl \
-		-device loader,file=resources/dtb/aarch64/qvirt.dtb,addr=0x40000
-	
+		-device ramfb -serial mon:stdio -display sdl 	
 clean:
 	cd volkrnl && make clean
 	rm -rf output
