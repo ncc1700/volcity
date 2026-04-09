@@ -4,8 +4,7 @@
 #include <rtl/string.h>
 #include <rtl/print.h>
 
-void k_entry(void* devTreeLoc){
-    u64 addr = (u64)devTreeLoc;
+void k_entry(){
     plat_setup();
     int i = 0;
     u64* h = (u64*)0x40000000;
