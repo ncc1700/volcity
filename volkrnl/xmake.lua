@@ -6,7 +6,7 @@ target("qvirt-arm64")
     add_files("src/*.c", "src/rtl/*.c")
     add_files("src/platform/qvirt-arm64/*.asm", 
               "src/platform/qvirt-arm64/*.c")    
-    add_files("src/coredev/uart/pl011/*.c")
+    add_files("src/coredev/uart/pl011/*.c", "src/coredev/devtree/*.c")
 
     add_cflags("-target aarch64-none-elf -ffreestanding -nostdlib -Wall", {force = true})
     add_asflags("-target aarch64-none-elf -ffreestanding -nostdlib -Wall", {force = true})

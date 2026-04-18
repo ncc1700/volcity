@@ -35,6 +35,13 @@ i64 rtl_compare_mem(const void* first, const void* second, u64 len){
     return 0;
 }   
 
+u32 rtl_bswap32(u32 b){
+    // thanks to https://keasigmadelta.com/blog/how-to-convert-endianness-in-c-c-in-4-different-ways/
+    return ((0xFF000000 & b) >> 24) |
+        ((0x00FF0000 & b) >> 8) |
+        ((0x0000FF00 & b) << 8) |
+        ((0x000000FF & b) << 24);
+}
 
 // needed by most C compilers like clang
 // do NOT remove these, even if we aren't using it

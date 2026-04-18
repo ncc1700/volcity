@@ -8,7 +8,7 @@
 #include <types.h>
 
 #define UART_BASE 0x09000000
-
+#define DEVTREE_BASE 0x40000000
 typedef u64 paddr;
 
 
