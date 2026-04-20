@@ -1,16 +1,8 @@
-.global arch_dump_registers
-.extern reg_dump_handler
+.global arch_print_registers
+.extern reg_print_handler
 
 
-
-
-
-
-
-
-
-arch_dump_registers:
-    sub sp, sp, #256
+.macro PUSH_REG_TO_STACK
     stp x0, x1, [sp, #0]    
     stp x2, x3, [sp, #16]  
     stp x4, x5, [sp, #32]  
@@ -31,11 +23,10 @@ arch_dump_registers:
     stp x30, x0, [sp, #240]  
     mov x0, sp
     stp x1, x0, [sp, #256]  // ???
-
     mov x0, sp
-    b reg_dump_handler
+.endmacro
 
-
+.macro POP_REG_FROM_STACK
     ldp x0, x1, [sp, #0]    
     ldp x2, x3, [sp, #16]  
     ldp x4, x5, [sp, #32]  
@@ -51,15 +42,19 @@ arch_dump_registers:
     ldp x24, x25, [sp, #192]  
     ldp x26, x27, [sp, #208]    
     ldp x28, x29, [sp, #224]  
-    
     ldp x30, x0, [sp, #240]  
     msr ESR_EL1, x0 
-
     ldp x1, x0, [sp, #256] 
     msr FAR_EL1, x1
+.endmacro
 
 
 
 
+arch_print_registers:
+    sub sp, sp, #256
+    PUSH_REG_TO_STACK
+    b reg_print_handler
+    POP_REG_FROM_STACK
     add sp, sp, #256
     ret

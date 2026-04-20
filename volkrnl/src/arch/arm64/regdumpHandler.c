@@ -10,7 +10,7 @@
 
 
 
-void reg_dump_handler(RegisterState* state){
+void reg_print_handler(RegisterState* state){
     rtl_print_hex("X0: ", state->x0, FALSE);
     rtl_print_hex("  X1: ", state->x1, TRUE);
     rtl_print_hex("X2: ", state->x2, FALSE);

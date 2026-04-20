@@ -16,9 +16,9 @@
     uart_cprint(reason);
     // do a dump here
     uart_cprint("\n--------------------------------------------\n");
-    uart_cprint("REGISTER DUMP: \n\n");
+    uart_cprint("REGISTER STATE: \n\n");
 
-    arch_dump_registers();
+    arch_print_registers();
     uart_cprint("\n\n--------------------------------------------\n");
     uart_cprint("\nPlease restart.\n");
 
