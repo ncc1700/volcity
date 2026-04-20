@@ -14,5 +14,5 @@ void k_entry(){
     // will trigger an exception
     *(u64*)0x1928289289292 = 'h';
     uart_cprint("Hello!");
-    while(1){halt();continue;}
+    while(1){arch_halt();continue;}
 }

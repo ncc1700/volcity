@@ -15,7 +15,7 @@
 
 void arch_setup();
 void arch_print_registers();
-void halt();
+void arch_halt();
 
 
 

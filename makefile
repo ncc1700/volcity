@@ -1,10 +1,6 @@
 qvirt-arm64:
 	cd volkrnl && xmake build qvirt-arm64
 
-stub:
-	cd volkrnl && xmake build qvirt-arm64
-
-
 initfs:
 	tar -cvf initfs.tar output
 
