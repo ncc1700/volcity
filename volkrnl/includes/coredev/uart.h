@@ -9,7 +9,7 @@ boolean is_uart_enabled();
 boolean uart_setup(u64 baseAddr);
 void uart_putchar(char c);
 char uart_getchar();
-void uart_cprint(char* string);
+void uart_cprint(const char* string);
 void uart_print(void);
 
 

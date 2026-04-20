@@ -24,8 +24,8 @@ char uart_getchar(){
     return *(u8*)base;
 }
 
-void uart_cprint(char* string){
-    char* s = string;
+void uart_cprint(const char* string){
+    char* s = (char*)string;
     while(*s != '\0'){
         uart_putchar(*s);
         s++;
