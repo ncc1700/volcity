@@ -4,6 +4,13 @@
 
 static u64 base = 0;
 
+
+
+boolean is_uart_enabled(){
+    if(base != 0) return TRUE;
+    else return FALSE;
+}
+
 boolean uart_setup(u64 baseAddr){
     base = baseAddr;
     return TRUE;

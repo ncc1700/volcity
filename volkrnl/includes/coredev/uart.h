@@ -5,7 +5,7 @@
 
 #include <types.h>
 
-
+boolean is_uart_enabled();
 boolean uart_setup(u64 baseAddr);
 void uart_putchar(char c);
 char uart_getchar();

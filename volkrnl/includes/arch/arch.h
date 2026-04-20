@@ -14,7 +14,8 @@
 
 
 void arch_setup();
-
+void arch_dump_registers();
+void halt();
 
 
 
