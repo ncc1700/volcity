@@ -1,6 +1,9 @@
 #include <coredev/devtree.h>
 #include <rtl/mem.h>
 #include <rtl/string.h>
+#include <rtl/print.h>
+
+#include <coredev/uart.h>
 
 static u64 base = 0;
 
@@ -21,6 +24,10 @@ void dtree_get_header(FDTHeader* header){
     header->bootCpuPhysId = rtl_bswap32(beHeader->bootCpuPhysId);
     header->stringSize = rtl_bswap32(beHeader->stringSize);
     header->structureSize = rtl_bswap32(beHeader->structureSize);
+}
+
+u64 dtree_get_base(){
+    return base;
 }
 
 u64 dtree_get_structure_block_addr(){
@@ -72,5 +79,41 @@ boolean dtree_next_rmem_list(FDTReservedMemList* list){
     list->rMemEntry = (FDTReservedMemEntry*)(list->beginningAddr + list->size);
     list->size += sizeof(FDTReservedMemEntry);
     return TRUE;
+}
+
+void dtree_parse(){
+    // test parsing
+    u64 strucAddr = dtree_get_structure_block_addr();
+    u64 strAddr = dtree_get_string_block_addr();
+    u64 offset = 0;
+    volatile u32* addr = (u32*)(strucAddr + offset);
+    while(1){
+        rtl_print_hex("Reading from: ", (u64)(addr + offset), TRUE);
+
+        u32 first = rtl_bswap32(addr[offset]);
+        if(first == FDT_BEGIN_NODE){
+            char* str = (char*)(addr + offset + 1);
+            uart_cprint("FDT_BEGIN_NODE\n");
+            uart_cprint(str);
+            int len = rtl_get_cstring_len(str);
+            rtl_print_dec("len: ", 0, TRUE);
+            offset += rtl_align_up(len + 1, 4);
+        } else if(first == FDT_PROP) {
+            uart_cprint("FDT_PROP\n");
+            FDTProperties* prop = (FDTProperties*)addr;
+            rtl_print_hex("Length: ", rtl_bswap32(prop->len), TRUE);
+            char* str = (char*)(strAddr + rtl_bswap32(prop->nameOffset));
+            uart_cprint(str);
+            uart_cprint("\n");
+            offset++;
+        } else if(first == FDT_END_NODE){
+            uart_cprint("FDT_END_NODE\n");
+            offset++;
+            break;
+        } else {
+            offset++;
+        }
+    }
+    uart_cprint("Finished parsing main node\n");
 }
 

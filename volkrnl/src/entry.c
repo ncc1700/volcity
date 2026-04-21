@@ -11,8 +11,9 @@
 void k_entry(){
     arch_setup();
     plat_setup();
-    // will trigger an exception
-    *(u64*)0x1928289289292 = 'h';
-    uart_cprint("Hello!");
+    uart_cprint("\n\nStarting Volcity...\n\n");
+    
+    dtree_parse();
+    
     while(1){arch_halt();continue;}
 }
