@@ -7,5 +7,5 @@
 
 
 void arch_setup(){
-    ar_setup_exceptions();
+    arch_setup_exceptions();
 }

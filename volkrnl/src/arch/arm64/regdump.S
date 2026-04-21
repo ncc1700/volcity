@@ -22,7 +22,7 @@
     mrs x1, FAR_EL1
     stp x30, x0, [sp, #240]  
     mov x0, sp
-    stp x1, x0, [sp, #256]  // ???
+    stp x1, x0, [sp, #256] 
     mov x0, sp
 .endmacro
 

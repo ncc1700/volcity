@@ -1,11 +1,11 @@
-.global ar_setup_exceptions
+.global arch_setup_exceptions
 
 
 .extern unknown_exception
 .extern error_exception
 
 
-ar_setup_exceptions:
+arch_setup_exceptions:
     sub sp, sp, #16
 
 

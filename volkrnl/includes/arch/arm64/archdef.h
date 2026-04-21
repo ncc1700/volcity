@@ -48,7 +48,7 @@ typedef struct _RegisterState {
 
 
 
-void ar_setup_exceptions();
+void arch_setup_exceptions();
 
 
 
