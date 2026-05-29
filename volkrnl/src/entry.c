@@ -12,7 +12,8 @@ void k_entry(){
     arch_setup();
     plat_setup();
     uart_cprint("\n\nStarting Volcity...\n\n");
-    dtree_parse();
+    *(u8*)(0x1029292902) = 'h';
+    //dtree_parse();
     
     while(1){arch_halt();continue;}
 }
