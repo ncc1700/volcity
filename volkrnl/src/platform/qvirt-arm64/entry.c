@@ -11,8 +11,10 @@
 void k_entry(){
     arch_setup();
     plat_setup();
-    uart_cprint("\n\nStarting Volcity...\n\n");
-    *(u8*)(0x1029292902) = 'h';
+    uart_cprint("\n\nStarting Volcity for QEMU-VIRT ARM64...\n\n");
+    arch_print_registers();
+
+    //*(u8*)(0x1029292902) = 'h';
     //dtree_parse();
     
     while(1){arch_halt();continue;}
