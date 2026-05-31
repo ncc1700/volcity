@@ -6,18 +6,12 @@
 #include <rtl/mem.h>
 #include <coredev/devtree.h>
 #include <arch/arch.h>
-
-void test_function();
+#include <core/core.h>
 void k_entry(){
     arch_setup();
     plat_setup();
     uart_cprint("\n\nStarting Volcity for QEMU-VIRT RISCV64...\n\n");
-    arch_print_registers();
-    test_function();
-    uart_cprint("Hello!\n");
-    //test_function();
-
-    //dtree_parse();
+    *(u8*)(0x1029292902) = 'h';
     
     while(1){arch_halt();continue;}
 }

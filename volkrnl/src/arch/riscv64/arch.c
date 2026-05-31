@@ -1,15 +1,13 @@
 #include <arch/arch.h>
+#include <arch/riscv64/archdef.h>
 
 
 
 
 void arch_setup(){
-    // STUB
+    arch_setup_exceptions();
 }
-
-// void arch_print_registers(){
-//     // STUB
-// }   
+ 
 
 void arch_halt(){
     while(1){continue;}

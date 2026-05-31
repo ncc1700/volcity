@@ -76,11 +76,10 @@
 
 
 arch_print_registers:
-    addi sp, sp, -256
+    addi sp, sp, -272
     PUSH_REG_TO_STACK
-
-    //call reg_print_handler
-    
+    mv a0, sp
+    call reg_print_handler
     POP_REG_FROM_STACK
-    addi sp, sp, 256
+    addi sp, sp, 272
     jr ra

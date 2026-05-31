@@ -44,5 +44,5 @@ void reg_print_handler(RegisterState* state){
     rtl_print_hex("S9: ", state->s9, FALSE);
     rtl_print_hex("  S10: ", state->s10, TRUE);
     rtl_print_hex("S11: ", state->s11, FALSE);
-    rtl_print_hex("S0: ", state->s0, FALSE);
+    rtl_print_hex("  S0: ", state->s0, TRUE);
 }
