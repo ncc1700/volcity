@@ -7,11 +7,14 @@
 #include <coredev/devtree.h>
 #include <arch/arch.h>
 #include <core/core.h>
-void k_entry(){
+#include <coredev/devtree.h>
+
+void k_entry(u64 dtreeLocation){
     arch_setup();
     plat_setup();
+    dtree_setup(dtreeLocation);
     uart_cprint("\n\nStarting Volcity for QEMU-VIRT RISCV64...\n\n");
-    *(u8*)(0x1029292902) = 'h';
+    dtree_parse();
     
     while(1){arch_halt();continue;}
 }

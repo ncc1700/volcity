@@ -12,5 +12,6 @@ k_load:
     csrw satp, 0
     la t0, k_entry
     csrw mepc, t0
+    mv a0, a1
     tail k_entry
     
