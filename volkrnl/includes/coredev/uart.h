@@ -6,7 +6,7 @@
 #include <types.h>
 
 boolean is_uart_enabled();
-boolean uart_setup(u64 baseAddr);
+boolean uart_setup(addr_t baseAddr);
 void uart_putchar(char c);
 char uart_getchar();
 void uart_cprint(const char* string);

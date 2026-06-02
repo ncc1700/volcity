@@ -1,10 +1,12 @@
 .global arch_setup_exceptions
 //.extern core_panic
 .extern exception_parser
+.extern uart_cprint
 .section .text
 
 
-
+string:
+    .asciz "?"
 
 
 exception_handler:
@@ -30,8 +32,8 @@ arch_setup_exceptions:
     sd ra, 0(sp)
     sd s0, 8(sp)
 
-    la t0, exception_handler
-    csrw mtvec, t0
+    la t6, exception_handler
+    csrw mtvec, t6
 
     ld ra, 0(sp)
     ld s0, 8(sp)

@@ -10,8 +10,8 @@ target("qvirt-arm64")
               "src/arch/arm64/*.c")   
     add_files("src/coredev/uart/pl011/*.c", "src/coredev/devtree/*.c")
 
-    add_cflags("-target aarch64-none-elf -ffreestanding -nostdlib -Wall", {force = true})
-    add_asflags("-target aarch64-none-elf -ffreestanding -nostdlib -Wall", {force = true})
+    add_cflags("-target aarch64-none-elf -ffreestanding -nostdlib -DBIT64 -Wall -Werror", {force = true})
+    add_asflags("-target aarch64-none-elf -ffreestanding -nostdlib -DBIT64 -Wall -Werror", {force = true})
     add_ldflags("-nostdlib -Tlinker/qvirt-arm64/linker.ld", {force = true})
 
 target("qvirt-riscv64")
@@ -26,8 +26,8 @@ target("qvirt-riscv64")
               "src/arch/riscv64/*.c")   
     add_files("src/coredev/uart/pl011/*.c", "src/coredev/devtree/*.c")
 
-    add_cflags("-target riscv64-none-elf -mcmodel=medany -ffreestanding -nostdlib -Wall", {force = true})
-    add_asflags("-target riscv64-none-elf -mcmodel=medany -ffreestanding -nostdlib -Wall", {force = true})
+    add_cflags("-target riscv64-none-elf -mcmodel=medany -ffreestanding -DBIT64 -nostdlib -Wall -Werror", {force = true})
+    add_asflags("-target riscv64-none-elf -mcmodel=medany -ffreestanding -DBIT64 -nostdlib -Wall -Werror", {force = true})
     add_ldflags("-nostdlib -Tlinker/qvirt-riscv64/linker.ld", {force = true})
 
 

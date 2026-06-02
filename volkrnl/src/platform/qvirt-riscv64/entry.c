@@ -12,9 +12,13 @@
 void k_entry(u64 dtreeLocation){
     arch_setup();
     plat_setup();
+    uart_cprint("\n\n");
+    arch_print_registers();
     dtree_setup(dtreeLocation);
     uart_cprint("\n\nStarting Volcity for QEMU-VIRT RISCV64...\n\n");
     dtree_parse();
-    
+
+    *(u64*)(0xFFFFFFFFFF) = 'h';
+    uart_cprint("??\n");
     while(1){arch_halt();continue;}
 }

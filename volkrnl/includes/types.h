@@ -48,9 +48,13 @@ typedef double f64;
 #define FALSE (0)
 #define NULL ((void*)0)
 
+
+#ifdef BIT64
 typedef u64 size_t;
-
-
+typedef u64 addr_t;
+#else
+#error "Volcity only supports 64bit systems"
+#endif
 
 
 #endif

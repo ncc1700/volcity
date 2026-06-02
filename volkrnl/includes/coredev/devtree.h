@@ -48,15 +48,15 @@ typedef struct _FDTProperties {
     u32 nameOffset;
 } FDTProperties;
 
-void dtree_setup(u64 address);
+void dtree_setup(addr_t address);
 u64 dtree_get_base();
 void dtree_get_header(FDTHeader* header);
 u64 dtree_get_structure_block_addr();
 u64 dtree_get_string_block_addr();
 u64 dtree_get_reserved_mem_block_addr();
-void dtree_begin_string_list(FDTStringList* list, u64 address, u64 maxSize);
+void dtree_begin_string_list(FDTStringList* list, addr_t address, size_t maxSize);
 boolean dtree_next_string_list(FDTStringList* list);
-void dtree_begin_rmem_list(FDTReservedMemList* list, u64 address, u64 maxSize);
+void dtree_begin_rmem_list(FDTReservedMemList* list, addr_t address, size_t maxSize);
 boolean dtree_next_rmem_list(FDTReservedMemList* list);
 void dtree_parse();
 

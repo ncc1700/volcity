@@ -6,6 +6,7 @@ qvirt-riscv64:
 
 qemu-arm64:
 	make qvirt-arm64
+	rm -f output-qvirt-riscv64/makefile
 	echo -e "all:\n\t tar -cvf initfs.tar ." >> output-qvirt-arm64/makefile
 	cd output-qvirt-arm64 && make
 	qemu-system-aarch64 -cpu cortex-a55 -machine virt \
@@ -14,6 +15,7 @@ qemu-arm64:
 
 qemu-riscv64:
 	make qvirt-riscv64
+	rm -f output-qvirt-riscv64/makefile
 	echo -e "all:\n\t tar -cvf initfs.tar ." >> output-qvirt-riscv64/makefile
 	cd output-qvirt-riscv64 && make
 	qemu-system-riscv64 -machine virt \
