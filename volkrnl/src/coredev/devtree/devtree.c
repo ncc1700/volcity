@@ -5,9 +5,9 @@
 
 #include <coredev/uart.h>
 
-static addr_t base = 0;
+static uptr base = 0;
 
-void dtree_setup(addr_t address){
+void dtree_setup(uptr address){
     base = address;
 }
 
@@ -49,7 +49,7 @@ u64 dtree_get_reserved_mem_block_addr(){
     return base + header.memReservOffset;
 }
 
-void dtree_begin_string_list(FDTStringList* list, addr_t address, size_t maxSize){
+void dtree_begin_string_list(FDTStringList* list, uptr address, usize maxSize){
     list->beginningAddr = address;
     list->string = (char*)list->beginningAddr;
     list->size = rtl_get_cstring_len(list->string) + 1;
@@ -65,7 +65,7 @@ boolean dtree_next_string_list(FDTStringList* list){
     return TRUE;
 }
 
-void dtree_begin_rmem_list(FDTReservedMemList* list, addr_t address, size_t maxSize){
+void dtree_begin_rmem_list(FDTReservedMemList* list, uptr address, usize maxSize){
     list->beginningAddr = address;
     list->rMemEntry = (FDTReservedMemEntry*)list->beginningAddr;
     list->size = sizeof(FDTReservedMemEntry);

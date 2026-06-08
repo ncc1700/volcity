@@ -2,8 +2,8 @@
 #include <rtl/mem.h>
 #include <rtl/math.h>
 
-u64 rtl_get_cstring_len(const char* src){
-    u64 i = 0;
+usize rtl_get_cstring_len(const char* src){
+    usize i = 0;
     while(*src != '\0'){
         i++;
         src++;
@@ -11,15 +11,15 @@ u64 rtl_get_cstring_len(const char* src){
     return i;
 }
 
-void rtl_copy_cstring(const char* src, char* dest, u64 len){
-    for(u64 i = 0; i < len; i++){
+void rtl_copy_cstring(const char* src, char* dest, usize len){
+    for(usize i = 0; i < len; i++){
         dest[i] = src[i];
     }
 }
 
-u64 rtl_cstring_to_dec_ex(const char* src, u64 len, boolean shouldFail){
-    u64 number = 0;
-    for(u64 i = 0; i < len; i++){
+usize rtl_cstring_to_dec_ex(const char* src, usize len, boolean shouldFail){
+    usize number = 0;
+    for(usize i = 0; i < len; i++){
         if(src[i] > '9' || src[i] < '0'){
             if(shouldFail) return number;
             else continue;
@@ -32,26 +32,34 @@ u64 rtl_cstring_to_dec_ex(const char* src, u64 len, boolean shouldFail){
     return number / 10;
 } 
 
-u64 rtl_cstring_to_dec(const char* src, u64 len){
+usize rtl_cstring_to_dec(const char* src, usize len){
     return rtl_cstring_to_dec_ex(src, len, TRUE);
 }
 
 
-void rtl_dec_to_cstring(const u64 number, char* src, u64 len){
-    u64 digits = 0;
-    u64 num = number;
+void rtl_dec_to_cstring(const usize number, char* src, usize len){
+    if(number == 0){
+        if(len >= 2){
+            src[0] = '0';
+            src[1] = '\0';
+            return;
+        }
+        
+    }
+    usize digits = 0;
+    usize num = number;
     while(num > 0){ 
         num /= 10;
         digits++;
     }
     num = number;
-    u64 index = 0;
-    u64 prevDigit = digits;
+    usize index = 0;
+    usize prevDigit = digits;
     for(index = 0; index < prevDigit; index++){
         if(index >= (len - 1)){
             break;
         }
-        u64 amount = rtl_pow(10, digits - index);
+        usize amount = rtl_pow(10, digits - index);
         u8 digit = num / amount;        
         src[index] = digit + '0';
         num -= (amount * digit);
@@ -117,9 +125,9 @@ static inline char hex_to_char(u8 h){
     }
 }
  
-u64 rtl_cstring_to_hex_ex(const char* src, u64 len, boolean shouldFail){
-    u64 number = 0;
-    for(u64 i = 0; i < len; i++){
+usize rtl_cstring_to_hex_ex(const char* src, usize len, boolean shouldFail){
+    usize number = 0;
+    for(usize i = 0; i < len; i++){
         if(!char_is_hex(src[i])){
             if(shouldFail) return number;
             else continue;
@@ -135,26 +143,26 @@ u64 rtl_cstring_to_hex_ex(const char* src, u64 len, boolean shouldFail){
     return number / 16;
 } 
 
-u64 rtl_cstring_to_hex(const char* src, u64 len){
+usize rtl_cstring_to_hex(const char* src, usize len){
     return rtl_cstring_to_hex_ex(src, len, TRUE);
 }
 
 
-void rtl_hex_to_cstring(const u64 number, char* src, u64 len){
-    u64 digits = 0;
-    u64 num = number;
+void rtl_hex_to_cstring(const usize number, char* src, usize len){
+    usize digits = 0;
+    usize num = number;
     while(num > 0){ 
         num /= 16;
         digits++;
     }
     num = number;
-    u64 index = 0;
-    u64 prevDigit = digits;
+    usize index = 0;
+    usize prevDigit = digits;
     for(index = 0; index < prevDigit; index++){
         if(index >= (len - 1)){
             break;
         }
-        u64 amount = rtl_pow(16, digits - index);
+        usize amount = rtl_pow(16, digits - index);
         u8 digit = num / amount;    
         if(digit <= 0x9 && digit >= 0x0){
             src[index] = digit + '0'; 

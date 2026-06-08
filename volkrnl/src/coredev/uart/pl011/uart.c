@@ -2,7 +2,7 @@
 
 
 
-static addr_t base = 0;
+static uptr base = 0;
 
 
 
@@ -11,7 +11,7 @@ boolean is_uart_enabled(){
     else return FALSE;
 }
 
-boolean uart_setup(addr_t baseAddr){
+boolean uart_setup(uptr baseAddr){
     base = baseAddr;
     return TRUE;
 }

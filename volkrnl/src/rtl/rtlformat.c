@@ -5,8 +5,8 @@
 
 #include <stdarg.h>
 
-void rtl_format(char* buf, u64 len, const char* format, va_list list){
-    u64 bufIndex = 0;
+void rtl_format(char* buf, usize len, const char* format, va_list list){
+    usize bufIndex = 0;
 
     while(*format != '\0' && bufIndex < len){
         if(*format == '%'){
@@ -14,11 +14,12 @@ void rtl_format(char* buf, u64 len, const char* format, va_list list){
             char nextChar = *format;
             if(nextChar == '\0') break;
             switch(nextChar){
-                case 'c':
+                case 'c':{
                     char c = (char)(va_arg(list, int));
                     buf[bufIndex] = c;
                     bufIndex++;
                     break;
+                }
                 default:
                     break;
             }  

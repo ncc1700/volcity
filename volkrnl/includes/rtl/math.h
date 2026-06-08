@@ -10,7 +10,7 @@
 
 
 
-u64 rtl_pow(u64 base, u64 exp);
+usize rtl_pow(usize base, usize exp);
 
 
 

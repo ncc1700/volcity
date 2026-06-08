@@ -4,13 +4,13 @@
 #include <types.h>
 
 
-void* rtl_copy_mem(const void* src, void* dest, u64 len);
-void* rtl_set_mem(void* dest, u64 value, u64 len);
-void rtl_zero_mem(void* dest, u64 len);
-i64 rtl_compare_mem(const void* first, const void* second, u64 len);
+void* rtl_copy_mem(const void* src, void* dest, usize len);
+void* rtl_set_mem(void* dest, usize value, usize len);
+void rtl_zero_mem(void* dest, usize len);
+isize rtl_compare_mem(const void* first, const void* second, usize len);
 u32 rtl_bswap32(u32 b);
 u64 rtl_bswap64(u64 b);
-u64 rtl_align_up(u64 value, u64 alignment);
+usize rtl_align_up(usize value, usize alignment);
 
 
 

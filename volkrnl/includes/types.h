@@ -25,6 +25,7 @@ typedef bool boolean;
 
 #else
 
+
 typedef unsigned char u8;
 typedef char i8;
 
@@ -50,10 +51,17 @@ typedef double f64;
 
 
 #ifdef BIT64
-typedef u64 size_t;
-typedef u64 addr_t;
+typedef u64 uptr;
+typedef i64 iptr;
+typedef u64 usize;
+typedef i64 isize;
+#elif BIT32
+typedef u32 uptr;
+typedef i32 iptr;
+typedef u32 usize;
+typedef i32 isize;
 #else
-#error "Volcity only supports 64bit systems"
+#error "Volcity only supports either 64bit or 32bit systems"
 #endif
 
 

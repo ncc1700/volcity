@@ -10,8 +10,8 @@
 
 
 
-void rtl_print_dec(const char* prev, u64 dec, boolean shouldNewline);
-void rtl_print_hex(const char* prev, u64 dec, boolean shouldNewline);
+void rtl_print_dec(const char* prev, usize dec, boolean shouldNewline);
+void rtl_print_hex(const char* prev, usize dec, boolean shouldNewline);
 
 
 #ifdef _VA_ARG

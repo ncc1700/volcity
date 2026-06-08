@@ -8,6 +8,5 @@
 
 boolean plat_setup(){
     uart_setup(UART_BASE);
-    //dtree_setup(DEVTREE_BASE);
     return TRUE;
 }

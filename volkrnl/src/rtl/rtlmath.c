@@ -1,11 +1,15 @@
 #include <rtl/math.h>
-
-
+#include <coredev/uart.h>
+#include <core/core.h>
 // very unoptimized =(
-u64 rtl_pow(u64 base, u64 exp){
-    u64 result = 1;
-    for(u64 i = 0; i < (exp - 1); i++){
+usize rtl_pow(usize base, usize exp){
+    usize result = 1;
+    for(usize i = 0; i < (exp - 1); i++){
         result *= base;
     }
     return result;
+}
+
+void __udivdi3(){
+    core_panic("__udivdi3 has been entered");
 }

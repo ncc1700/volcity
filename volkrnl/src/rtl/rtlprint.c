@@ -4,21 +4,21 @@
 
 
 
-void rtl_print_dec(const char* prev, u64 dec, boolean shouldNewline){
+void rtl_print_dec(const char* prev, usize dec, boolean shouldNewline){
     char buffer[20];
     rtl_dec_to_cstring(dec, buffer, 20);
     uart_cprint(prev);
     uart_cprint(buffer);
-    if(shouldNewline) uart_cprint("\n");
+    if(shouldNewline) uart_putchar('\n');
 }
 
-void rtl_print_hex(const char* prev, u64 dec, boolean shouldNewline){
+void rtl_print_hex(const char* prev, usize dec, boolean shouldNewline){
     char buffer[20];
     rtl_hex_to_cstring(dec, buffer, 20);
     uart_cprint(prev);
     uart_cprint("0x");
     uart_cprint(buffer);
-    if(shouldNewline) uart_cprint("\n");
+    if(shouldNewline) uart_putchar('\n');
 }
 
 #ifdef _VA_ARG
