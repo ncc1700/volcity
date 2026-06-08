@@ -29,13 +29,9 @@ void rtl_format(char* buf, usize len, const char* format, va_list list){
                 case 'd':{
                     char buffer[22];
                     usize num = 0;
-                    #ifdef BIT64
                     if(isLong == TRUE){
                         num = va_arg(list, i64);
                     } else num = va_arg(list, i32);
-                    #else 
-                    num = va_arg(list, i32);
-                    #endif
                     usize digits = rtl_dec_to_cstring(num, buffer, 22);
                     for(int i = 0; i < digits; i++){
                         buf[bufIndex] = buffer[i];
@@ -49,13 +45,9 @@ void rtl_format(char* buf, usize len, const char* format, va_list list){
                 case 'u':{
                     char buffer[22];
                     usize num = 0;
-                    #ifdef BIT64
                     if(isLong == TRUE){
                         num = va_arg(list, u64);
                     } else num = va_arg(list, u32);
-                    #else 
-                    num = va_arg(list, u32);
-                    #endif
                     usize digits = rtl_dec_to_cstring(num, buffer, 22);
                     for(int i = 0; i < digits; i++){
                         buf[bufIndex] = buffer[i];
@@ -69,13 +61,9 @@ void rtl_format(char* buf, usize len, const char* format, va_list list){
                 case 'x':{
                     char buffer[22];
                     usize num = 0;
-                    #ifdef BIT64
                     if(isLong == TRUE){
                         num = va_arg(list, u64);
                     } else num = va_arg(list, u32);
-                    #else 
-                    num = va_arg(list, u32);
-                    #endif
                     usize digits = rtl_hex_to_cstring(num, buffer, 22);
                     for(int i = 0; i < digits; i++){
                         buf[bufIndex] = buffer[i];
