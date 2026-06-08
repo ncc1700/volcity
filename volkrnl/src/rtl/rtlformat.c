@@ -74,6 +74,17 @@ void rtl_format(char* buf, usize len, const char* format, va_list list){
                     }
                     break;
                 }
+                case 's':{
+                    char* str = va_arg(list, char*);
+                    while(*str != '\0'){
+                        buf[bufIndex] = *str;
+                        bufIndex++;
+                        if(bufIndex >= len){
+                            break;
+                        }
+                        str++;
+                    }
+                }
                 default:
                     break;
             }  

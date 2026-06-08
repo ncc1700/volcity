@@ -2,6 +2,8 @@
 #include <coredev/uart.h>
 #include <rtl/string.h>
 
+
+
 void rtl_print(const char* string){
     uart_cprint(string);
 }
