@@ -37,14 +37,13 @@ usize rtl_cstring_to_dec(const char* src, usize len){
 }
 
 
-void rtl_dec_to_cstring(const usize number, char* src, usize len){
+usize rtl_dec_to_cstring(const usize number, char* src, usize len){
     if(number == 0){
         if(len >= 2){
             src[0] = '0';
             src[1] = '\0';
-            return;
-        }
-        
+            return 1;
+        } else return 0;
     }
     usize digits = 0;
     usize num = number;
@@ -68,6 +67,7 @@ void rtl_dec_to_cstring(const usize number, char* src, usize len){
         src[index] = '0';
     }
     src[index] = '\0';
+    return digits;
 }
 
 
@@ -148,7 +148,14 @@ usize rtl_cstring_to_hex(const char* src, usize len){
 }
 
 
-void rtl_hex_to_cstring(const usize number, char* src, usize len){
+usize rtl_hex_to_cstring(const usize number, char* src, usize len){
+    if(number == 0x0){
+        if(len >= 2){
+            src[0] = '0';
+            src[1] = '\0';
+            return 1;
+        } else return 0;
+    }
     usize digits = 0;
     usize num = number;
     while(num > 0){ 
@@ -174,5 +181,6 @@ void rtl_hex_to_cstring(const usize number, char* src, usize len){
         index++;
     }
     src[index] = '\0';
+    return digits;
 }
 

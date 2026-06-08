@@ -13,9 +13,9 @@
 void k_entry(uptr dtreeLocation){
     arch_setup();
     plat_setup();
-    uart_cprint("\n\n");
+    rtl_print("\n\n");
     dtree_setup(dtreeLocation);
-    uart_cprint("\n\nStarting Volcity for QEMU-VIRT RISCV32...\n\n");
+    rtl_print("\n\nStarting Volcity for QEMU-VIRT RISCV32...\n\n");
     *(uptr*)(0xFFFFFFFFFF) = 'h';
     while(1){arch_halt();continue;}
 }

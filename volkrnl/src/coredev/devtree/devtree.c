@@ -93,27 +93,27 @@ void dtree_parse(){
         u32 first = rtl_bswap32(addr[offset]);
         if(first == FDT_BEGIN_NODE){
             char* str = (char*)(addr + offset + 1);
-            uart_cprint("FDT_BEGIN_NODE\n");
-            uart_cprint(str);
+            rtl_print("FDT_BEGIN_NODE\n");
+            rtl_print(str);
             int len = rtl_get_cstring_len(str);
             rtl_print_dec("len: ", 0, TRUE);
             offset += rtl_align_up(len + 1, 4);
         } else if(first == FDT_PROP) {
-            uart_cprint("FDT_PROP\n");
+            rtl_print("FDT_PROP\n");
             FDTProperties* prop = (FDTProperties*)addr;
             rtl_print_hex("Length: ", rtl_bswap32(prop->len), TRUE);
             char* str = (char*)(strAddr + rtl_bswap32(prop->nameOffset));
-            uart_cprint(str);
-            uart_cprint("\n");
+            rtl_print(str);
+            rtl_print("\n");
             offset++;
         } else if(first == FDT_END_NODE){
-            uart_cprint("FDT_END_NODE\n");
+            rtl_print("FDT_END_NODE\n");
             offset++;
             break;
         } else {
             offset++;
         }
     }
-    uart_cprint("Finished parsing main node\n");
+    rtl_print("Finished parsing main node\n");
 }
 
