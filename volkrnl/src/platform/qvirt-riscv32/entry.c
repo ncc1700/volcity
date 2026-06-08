@@ -16,6 +16,9 @@ void k_entry(uptr dtreeLocation){
     rtl_print("\n\n");
     dtree_setup(dtreeLocation);
     rtl_print("\n\nStarting Volcity for QEMU-VIRT RISCV32...\n\n");
-    rtl_printf("Hello world! %s 0x%lx %d %ld\n", "hey kiddo!", 0xFFFFFFFFFFFFFFFF, 10, 2147483648);
+    int number = rtl_cstring_to_bin("1000011", 7);
+    rtl_printf("Hello world! %b, %d\n",  number, number);
+    
+   
     while(1){arch_halt();continue;}
 }

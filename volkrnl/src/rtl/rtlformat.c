@@ -1,5 +1,4 @@
 #include <rtl/format.h>
-#include <coredev/uart.h>
 #include <rtl/string.h>
 #ifdef _VA_ARG
 
@@ -49,6 +48,22 @@ void rtl_format(char* buf, usize len, const char* format, va_list list){
                         num = va_arg(list, u64);
                     } else num = va_arg(list, u32);
                     usize digits = rtl_dec_to_cstring(num, buffer, 22);
+                    for(int i = 0; i < digits; i++){
+                        buf[bufIndex] = buffer[i];
+                        bufIndex++;
+                        if(bufIndex >= len){
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case 'b':{
+                    char buffer[22];
+                    usize num = 0;
+                    if(isLong == TRUE){
+                        num = va_arg(list, u64);
+                    } else num = va_arg(list, u32);
+                    usize digits = rtl_bin_to_cstring(num, buffer, 22);
                     for(int i = 0; i < digits; i++){
                         buf[bufIndex] = buffer[i];
                         bufIndex++;

@@ -70,6 +70,60 @@ usize rtl_dec_to_cstring(const usize number, char* src, usize len){
     return digits;
 }
 
+// broken
+usize rtl_cstring_to_bin_ex(const char* src, usize len, boolean shouldFail){
+    usize number = 0;
+    for(usize i = 0; i < len; i++){
+        if(src[i] > '1' || src[i] < '0'){
+            if(shouldFail) return number;
+            else continue;
+        }
+        u8 singleDigit = src[i] - '0';
+        number += singleDigit;
+        number *= 2;
+    }
+    
+    return number / 2;
+} 
+
+usize rtl_cstring_to_bin(const char* src, usize len){
+    return rtl_cstring_to_bin_ex(src, len, TRUE);
+}
+
+usize rtl_bin_to_cstring(const usize number, char* src, usize len){
+    if(number == 0){
+        if(len >= 2){
+            src[0] = '0';
+            src[1] = '\0';
+            return 1;
+        } else return 0;
+    }
+    usize digits = 0;
+    usize num = number;
+    while(num > 0){ 
+        num /= 2;
+        digits++;
+    }
+    num = number;
+    usize index = 0;
+    usize prevDigit = digits;
+    for(index = 0; index < prevDigit; index++){
+        if(index >= (len - 1)){
+            break;
+        }
+        usize amount = rtl_pow(2, digits - index);
+        u8 digit = num / amount;        
+        src[index] = digit + '0';
+        num -= (amount * digit);
+    }
+    if(index == 0 && index < (len - 1)){
+        src[index] = '0';
+    }
+    src[index] = '\0';
+    return digits;
+}
+
+
 
 static inline boolean char_is_hex(char c){
     if(c <= '9' && c >= '0'){
