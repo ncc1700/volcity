@@ -12,6 +12,3 @@ usize rtl_pow(usize base, usize exp){
     return result;
 }
 
-void __udivdi3(){
-    core_panic("__udivdi3 has been entered");
-}

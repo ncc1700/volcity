@@ -1,12 +1,9 @@
 .global arch_setup_exceptions
 //.extern core_panic
 .extern exception_parser
-.extern uart_cprint
 .section .text
 
 
-string:
-    .asciz "?"
 
 
 exception_handler:

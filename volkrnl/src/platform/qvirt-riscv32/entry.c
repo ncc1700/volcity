@@ -9,6 +9,10 @@
 #include <core/core.h>
 #include <coredev/devtree.h>
 
+void __udivdi3(){
+    core_panic("__udivdi3 has been entered");
+}
+
 
 void k_entry(uptr dtreeLocation){
     arch_setup();
