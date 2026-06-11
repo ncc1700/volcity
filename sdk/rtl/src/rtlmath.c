@@ -1,6 +1,4 @@
 #include <rtl/math.h>
-#include <coredev/uart.h>
-#include <core/core.h>
 // very unoptimized =(
 
 

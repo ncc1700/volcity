@@ -1,19 +1,17 @@
 #include <rtl/format.h>
-#include <coredev/uart.h>
+// #include <coredev/uart.h>
 #include <rtl/string.h>
 
 
 
-void rtl_print(const char* string){
-    uart_cprint(string);
-}
+void rtl_print(const char* string);
 
 void rtl_print_dec(const char* prev, usize dec, boolean shouldNewline){
     char buffer[20];
     rtl_dec_to_cstring(dec, buffer, 20);
     rtl_print(prev);
     rtl_print(buffer);
-    if(shouldNewline) uart_putchar('\n');
+    if(shouldNewline) rtl_print("\n");
 }
 
 void rtl_print_hex(const char* prev, usize dec, boolean shouldNewline){
@@ -22,7 +20,7 @@ void rtl_print_hex(const char* prev, usize dec, boolean shouldNewline){
     rtl_print(prev);
     rtl_print("0x");
     rtl_print(buffer);
-    if(shouldNewline) uart_putchar('\n');
+    if(shouldNewline) rtl_print("\n");
 }
 
 #ifdef _VA_ARG
