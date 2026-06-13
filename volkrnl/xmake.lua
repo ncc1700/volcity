@@ -8,7 +8,7 @@ target("volkrnl")
     set_targetdir("../output-$(vplatform)/core")
     set_filename("volkrnl.elf")
     add_includedirs("includes", "../sdk/includes")
-    add_files("src/*.c", "src/rtl/*.c", "src/core/*.c")
+    add_files("src/rtl/*.c", "src/core/*.c")
     add_files("src/platform/$(vplatform)/*.S", 
               "src/platform/$(vplatform)/*.c")    
     add_files("src/arch/$(varch)/*.S", 

@@ -2,6 +2,8 @@
 
 target("rtl")
     set_kind("static")
+    set_targetdir("../../output-$(vplatform)/sdk")
+    set_filename("librtl.a")
     set_toolchains("clang-$(varch)")
     add_includedirs("../includes")
     add_files("src/*.c")
