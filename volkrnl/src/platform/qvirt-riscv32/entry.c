@@ -8,7 +8,7 @@
 #include <arch/arch.h>
 #include <core/core.h>
 #include <coredev/devtree.h>
-
+extern void test_jmp_to_usermode();
 void __udivdi3(){
     core_panic("__udivdi3 has been entered");
 }
@@ -23,6 +23,8 @@ void k_entry(uptr dtreeLocation){
     int number = rtl_cstring_to_bin("1000011", 7);
     rtl_printf("Hello world! %b, %d\n",  number, number);
     
-   
+    *(u64*)0x82928019298292 = 1;
+    //rtl_pri
+    //*(u32*)0x829289298292 = 1;
     while(1){arch_halt();continue;}
 }

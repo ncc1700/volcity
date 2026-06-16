@@ -19,7 +19,9 @@ SECTIONS {
     }
 
     . += 0x2000;
-    s_top = .;  
+    s_top = .; 
+    . += 0x2000;
+    isr_s_top = .; 
     . += 0x1000;
     g_top = .;
 }

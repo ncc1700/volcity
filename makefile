@@ -15,6 +15,10 @@ qemu-riscv64:
 		-bios none -kernel output-qvirt-riscv64/core/volkrnl.elf -initrd output-qvirt-riscv64/initfs.tar -m 96M \
 		-device ramfb -serial mon:stdio -display sdl 	
 
+rv64-debug:
+	qemu-system-riscv64 -machine virt \
+		-bios none -kernel output-qvirt-riscv64/core/volkrnl.elf -initrd output-qvirt-riscv64/initfs.tar -m 96M \
+		-device ramfb -serial mon:stdio -display sdl -S -s
 qemu-riscv32:
 	make qvirt-riscv32
 	rm -f output-qvirt-riscv32/makefile
