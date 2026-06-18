@@ -3,7 +3,6 @@
 
 
 
-
 void plat_uart_putchar(char c){
     *(u8*)UART_BASE = c;
 }

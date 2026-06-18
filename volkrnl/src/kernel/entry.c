@@ -9,7 +9,6 @@ void kern_entry(uptr dtreeLocation){
     plat_setup();
     
     rtl_printf("\n\nStarting Volcity from %s %s...\n\n", PLATFORM, ARCH);    
-    rtl_print("?\n");
     
     while(1){continue;}
 }

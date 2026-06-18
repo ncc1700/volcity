@@ -22,4 +22,6 @@ SECTIONS {
     s_top = .;  
     . += 0x1000;
     g_top = .;
+    . += 0x1000;
+    h_beginning = .;
 }
