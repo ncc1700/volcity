@@ -27,10 +27,3 @@ toolchain("clang-riscv64")
 toolchain_end()
 
 
-
-toolchain("clang-riscv32")
-    set_kind("standalone")
-    set_toolset("cc", "clang")
-    set_toolset("as", "clang")
-    set_toolset("ld", "ld.lld")
-toolchain_end()

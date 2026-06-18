@@ -24,4 +24,3 @@ clean:
 	rm -rf .xmake
 	rm -rf build
 
-#  cargo build --target=aarch64-unknown-none

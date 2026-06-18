@@ -15,7 +15,6 @@
 
 
 
-void plat_timer_setup();
 
 
 

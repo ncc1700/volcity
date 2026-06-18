@@ -15,6 +15,7 @@ void exception_parser() {
         switch(mcause){
             case 7:{
                 arch_set_mie(arch_get_mie() & ~(1 << 7));
+                rtl_print_dec("timer value is: ", plat_get_timer_value(), TRUE);
                 plat_timer_restart();
                 arch_set_mie(arch_get_mie() | (1 << 7));
                 break;

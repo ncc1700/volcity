@@ -8,16 +8,18 @@
 
 
 
+u64 plat_get_timer_value(){
+    return *(u64*)(INT_BASE + MTIME_OFFSET);
+}
 
 void plat_timer_restart(){
-    *(u64*)(INT_BASE + MTIMECMP_OFFSET) = (*(u64*)(INT_BASE + MTIME_OFFSET)) + INTERVAL;
+    *(u64*)(INT_BASE + MTIMECMP_OFFSET) = plat_get_timer_value() + INTERVAL;
 }
 
 void plat_timer_setup(){
     plat_timer_restart();
-    u64 mstatus = arch_get_mstatus();
-    u64 mie = arch_get_mie();
-
-    arch_set_mstatus(mstatus | (1 << 3));
-    arch_set_mie(mie | (1 << 7));
+    arch_set_mstatus(arch_get_mstatus() | (1 << 3));
+    arch_set_mie(arch_get_mie() | (1 << 7));
 }
+
+
