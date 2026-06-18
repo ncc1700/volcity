@@ -3,11 +3,11 @@ includes("sdk/rtl")
 
 option("varch")
     set_default("riscv64")
-    set_values("riscv64", "riscv32")
+    set_values("riscv64")
 
 option("vplatform")
     set_default("qvirt-riscv64")
-    set_values("qvirt-riscv64", "qvirt-riscv32")
+    set_values("qvirt-riscv64")
 
 
 

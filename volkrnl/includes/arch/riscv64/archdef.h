@@ -7,6 +7,9 @@
 #include <types.h>
 
 
+#define MTIMECMP_OFFSET 0x4000
+#define MTIME_OFFSET 0xBFF8
+
 
 
 typedef struct _RegisterState {
@@ -46,10 +49,21 @@ typedef struct _RegisterState {
 
 
 
+
 void arch_setup_exceptions();
+u64 arch_get_mhartid();
+u64 arch_get_mie();
+u64 arch_get_mepc();
+u64 arch_get_mcause();
+u64 arch_get_mtvec();
+u64 arch_get_mscratch();
+u64 arch_get_mstatus();
 
-
-
+void arch_set_mie(u64 value);
+void arch_set_mcause(u64 value);
+void arch_set_mtvec(u64 value);
+void arch_set_mscratch(u64 value);
+void arch_set_mstatus(u64 value);
 
 
 

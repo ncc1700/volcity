@@ -1,5 +1,4 @@
 #include <rtl/format.h>
-// #include <coredev/uart.h>
 #include <rtl/string.h>
 
 

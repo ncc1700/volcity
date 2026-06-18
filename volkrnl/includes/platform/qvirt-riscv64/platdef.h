@@ -9,13 +9,13 @@
 
 #define UART_BASE 0x10000000
 #define DEVTREE_BASE 0x80000000
+#define INT_BASE 0x2000000
 
 
 
 
 
-
-
+void plat_timer_setup();
 
 
 

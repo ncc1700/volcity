@@ -1,4 +1,4 @@
-ENTRY(k_load)
+ENTRY(plat_entry)
 
 SECTIONS {
     . = 0x80000000;

@@ -2,10 +2,10 @@
 #include <arch/riscv64/archdef.h>
 
 
-
+void exception_handler();
 
 void arch_setup(){
-    arch_setup_exceptions();
+    arch_set_mtvec((uptr)exception_handler);
 }
  
 

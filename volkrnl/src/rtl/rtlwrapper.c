@@ -1,7 +1,7 @@
-#include <coredev/uart.h>
+#include <platform/platform.h>
 
 
 
 void rtl_print(const char* string){
-    uart_cprint(string);
+    plat_uart_print(string);
 }
