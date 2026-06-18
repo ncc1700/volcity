@@ -13,9 +13,12 @@ void exception_parser() {
     if(mcause & (1 << 31)){
         mcause &= ~(1 << 31);
         switch(mcause){
-            case 7:
+            case 7:{
+                arch_set_mie(arch_get_mie() & ~(1 << 7));
                 plat_timer_restart();
+                arch_set_mie(arch_get_mie() | (1 << 7));
                 break;
+            }
             default:
                 rtl_print_hex("??: ", mcause, TRUE);
                 break;
