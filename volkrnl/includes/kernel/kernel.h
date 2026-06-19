@@ -14,7 +14,7 @@
 
 
 [[noreturn]] void kern_panic(const char* reason);
-
+void kern_begin_sched();
 
 
 
