@@ -5,7 +5,7 @@
 target("volkrnl")
     set_toolchains("clang-$(varch)")
     add_deps("rtl")
-    set_targetdir("../output-$(vplatform)/kernel")
+    set_targetdir("../output-$(vplatform)/system")
     set_filename("volkrnl.elf")
     add_includedirs("includes", "../sdk/includes")
     add_files("src/rtl/*.c", "src/kernel/*.c", "src/device/fdt/*.c")

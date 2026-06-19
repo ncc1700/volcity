@@ -6,15 +6,15 @@ qvirt-riscv64:
 qemu-riscv64:
 	make qvirt-riscv64
 	rm -f output-qvirt-riscv64/makefile
-	echo -e "all:\n\t tar -cvf initfs.tar ." >> output-qvirt-riscv64/makefile
+	echo -e "all:\n\t tar -cvf initfs.tar system/ sdk/" >> output-qvirt-riscv64/makefile
 	cd output-qvirt-riscv64 && make
 	qemu-system-riscv64 -machine virt \
-		-bios none -kernel output-qvirt-riscv64/kernel/volkrnl.elf -initrd output-qvirt-riscv64/initfs.tar -m 96M \
+		-bios none -kernel output-qvirt-riscv64/system/volkrnl.elf -initrd output-qvirt-riscv64/initfs.tar -m 96M \
 		-device ramfb -serial mon:stdio -display sdl 	
 
 rv64-debug:
 	qemu-system-riscv64 -machine virt \
-		-bios none -kernel output-qvirt-riscv64/kernel/volkrnl.elf -initrd output-qvirt-riscv64/initfs.tar -m 96M \
+		-bios none -kernel output-qvirt-riscv64/system/volkrnl.elf -initrd output-qvirt-riscv64/initfs.tar -m 96M \
 		-device ramfb -serial mon:stdio -display sdl -S -s
 
 clean:

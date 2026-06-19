@@ -9,13 +9,13 @@ void kern_entry(uptr dtreeLocation){
     plat_setup();
     
     rtl_printf("\n\nStarting Volcity from %s %s...\n\n", PLATFORM, ARCH);    
-    
+
     FdtInfo info = {0};
     boolean result = dev_fdt_init(&info, dtreeLocation);
     if(result == TRUE){
         rtl_printf("valid fdt! magic is 0x%x\n", info.header.magic);
     }
-    dev_fdt_print_all_strings(&info);
+    dev_fdt_dump(&info);
 
     kern_begin_sched();
     while(1){continue;}
