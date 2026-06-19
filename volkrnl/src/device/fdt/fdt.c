@@ -30,6 +30,9 @@ boolean dev_fdt_init(FdtInfo* info, uptr address){
 
 
 const char* dev_fdt_get_string(FdtInfo* info, u32 offset){
+    if(offset >= info->header.dtStringSize){
+        return "invalid";
+    }
     uptr address = info->fdtAddress + info->header.dtStringsOffset;
     const char* string = (const char*)(address + offset);
     return string;
@@ -73,19 +76,21 @@ void dev_fdt_dump(FdtInfo* info){
                 rtl_print("FDT_BEGIN_NODE\n");
                 offset += 4;
                 u32 nameOffset = *(u32*)(address + offset);
+                rtl_printf("0x%x - ", nameOffset);
                 rtl_print(dev_fdt_get_string(info, nameOffset));
                 rtl_print("\n");
                 break;
             }
             case FDT_END_NODE:{
                 rtl_print("FDT_END_NODE\n");
-                goto EXIT;
+                //goto EXIT;
                 break;
             }
             case FDT_PROP:{
                 rtl_print("FDT_PROP\n");
                 offset += 4;
                 FdtProp* prop = (FdtProp*)(address + offset);
+                rtl_printf("0x%x - ", prop->nameOffset);
                 rtl_print(dev_fdt_get_string(info, prop->nameOffset));
                 rtl_print("\n");
                 if(prop->length > 4){
@@ -99,7 +104,7 @@ void dev_fdt_dump(FdtInfo* info){
             }
             case FDT_END:{
                 rtl_print("FDT_END\n");
-                goto EXIT;
+                offset += 1;
                 break;
             }
             default:{
