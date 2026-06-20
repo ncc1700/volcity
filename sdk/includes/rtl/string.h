@@ -10,6 +10,8 @@
 
 
 usize rtl_get_cstring_len(const char* src);
+isize rtl_compare_cstring_ex(const char* first, const char* second, usize maxLength);
+isize rtl_compare_cstring(const char* first, const char* second);
 void rtl_copy_cstring(const char* src, char* dest, usize len);
 usize rtl_cstring_to_dec_ex(const char* src, usize len, boolean shouldFail);
 usize rtl_cstring_to_dec(const char* src, usize len);

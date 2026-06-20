@@ -8,7 +8,7 @@ void kern_entry(uptr dtreeLocation){
     arch_setup();
     plat_setup();
     
-    rtl_printf("\n\nStarting Volcity from %s %s...\n\n", PLATFORM, ARCH);    
+    rtl_printf("\n\nVolcity\n\tbuilt on %s at %s\n\n", __DATE__, __TIME__);    
 
     FdtInfo info = {0};
     boolean result = dev_fdt_init(&info, dtreeLocation);
@@ -17,6 +17,6 @@ void kern_entry(uptr dtreeLocation){
     }
     dev_fdt_dump(&info);
 
-    //kern_begin_sched();
+    kern_begin_sched();
     while(1){continue;}
 }

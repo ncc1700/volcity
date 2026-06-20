@@ -11,6 +11,23 @@ usize rtl_get_cstring_len(const char* src){
     return i;
 }
 
+isize rtl_compare_cstring_ex(const char* first, const char* second, usize maxLength){
+    return rtl_compare_mem((const void*)first, (const void*)second, maxLength);
+}
+// slow
+isize rtl_compare_cstring(const char* first, const char* second){
+    usize firstSize = rtl_get_cstring_len(first);
+    usize secondSize = rtl_get_cstring_len(second);
+    if(firstSize > secondSize){
+        return first[secondSize - 1] - second[secondSize - 1];
+    } else if(firstSize < secondSize){
+        return first[firstSize - 1] - second[firstSize - 1];
+    }
+    return rtl_compare_cstring_ex(first, second, firstSize);
+}
+
+
+
 void rtl_copy_cstring(const char* src, char* dest, usize len){
     for(usize i = 0; i < len; i++){
         dest[i] = src[i];

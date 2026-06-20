@@ -1,3 +1,6 @@
+
+
+
 qvirt-riscv64:
 	xmake f --varch=riscv64 --vplatform=qvirt-riscv64 -m debug
 	xmake build volcity
@@ -17,6 +20,11 @@ rv64-debug:
 		-bios none -kernel output-qvirt-riscv64/system/volkrnl.elf -initrd output-qvirt-riscv64/initfs.tar -m 96M \
 		-device ramfb -serial mon:stdio -display sdl -S -s
 
+
+dump_dtb:
+	qemu-system-riscv64 -machine virt \
+		-bios none -kernel output-qvirt-riscv64/system/volkrnl.elf -initrd output-qvirt-riscv64/initfs.tar -m 96M \
+		-device ramfb -serial mon:stdio -display sdl -machine dumpdtb=qemu.dtb
 clean:
 	cd volkrnl && make clean
 	rm -rf output-*

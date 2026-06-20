@@ -34,10 +34,15 @@ typedef struct _FdtInfo {
     uptr fdtAddress;
 } FdtInfo;
 
+typedef struct _FdtNode {
+    uptr offset;
+} FdtNode;
+
 typedef struct _FdtProp {
     u32 length;
     u32 nameOffset;
 } FdtProp;
+
 
 boolean dev_fdt_init(FdtInfo* info, uptr address);
 const char* dev_fdt_get_string(FdtInfo* info, u32 offset);
