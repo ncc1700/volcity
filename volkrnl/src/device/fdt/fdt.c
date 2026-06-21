@@ -59,6 +59,44 @@ void dev_fdt_print_all_strings(FdtInfo* info){
 }
 
 
+u32 dev_fdt_print_node(FdtInfo* info, u32* cells, u32 cellSize, u32 offset){
+    while(offset < cellSize){
+        u32 idk = rtl_bswap32(cells[offset]);
+        switch(idk){
+            case FDT_BEGIN_NODE:{
+                rtl_print("FDT_BEGIN_NODE\n");
+                const char* name = (const char*)(cells + offset + 1);
+                rtl_print(name);
+                rtl_print("\n");
+                usize len = rtl_get_cstring_len(name);
+                offset += (rtl_align_up(len + 1, 4) / 4) + 1;
+                break;
+            }
+            case FDT_END_NODE:{
+                rtl_print("FDT_END_NODE\n");
+                offset++;
+                return offset;
+                break;
+            }
+            case FDT_PROP:{
+                rtl_print("\tFDT_PROP\n");
+                offset++;
+                FdtProp* prop = (FdtProp*)(cells + offset);
+                rtl_printf("\t\t%s, %d, 0x%x\n", 
+                        dev_fdt_get_string(info, rtl_bswap32(prop->nameOffset)), 
+                        rtl_bswap32(prop->length), rtl_bswap32(prop->nameOffset));
+                offset += (rtl_align_up(rtl_bswap32(prop->length), 4) / 4)  + 2;
+                break;
+            }
+            default:{
+                rtl_printf("\t\tunknown data at %d (idk is %d)\n", offset, idk);
+                offset+=2;
+            }
+        }
+    }
+    return offset;
+}
+
 
 // its a mess and it doesn't even work, gotta fix it
 
@@ -70,34 +108,10 @@ void dev_fdt_dump(FdtInfo* info){
     rtl_print(style);
     for(u32 i = 0; i < size; i++){
         if(rtl_bswap32(cells[i]) != FDT_BEGIN_NODE) continue;
-        rtl_printf("node found!\n");
-        for(u32 j = i; j < size; j++){
-            u32 idk = rtl_bswap32(cells[j]);
-            switch(idk){
-                case FDT_BEGIN_NODE:{
-                    rtl_print("FDT_BEGIN_NODE\n");
-                    break;
-                }
-                case FDT_END_NODE:{
-                    rtl_print("FDT_END_NODE\n");
-                    goto EXIT;
-                    break;
-                }
-                case FDT_PROP:{
-                    rtl_print("\tFDT_PROP\n");
-                    FdtProp* prop = (FdtProp*)(cells + j);
-                    rtl_printf("\t\t%s, %d\n", dev_fdt_get_string(info, rtl_bswap32(prop->nameOffset)), rtl_bswap32(prop->length));
-
-                    j += rtl_bswap32(prop->length);
-                    //rtl_printf("0x%x\n", rtl_bswap32(cells[j + 1]));
-                    break;
-                }
-                default:{
-                    //rtl_print("\t\tunknown data\n");
-                }
-            }
-        } 
+        rtl_printf("node found at %d!\n", i);
+        i = dev_fdt_print_node(info, cells, size, i);
         EXIT:
+       
     }
     rtl_print(style);
     rtl_print("\n");
