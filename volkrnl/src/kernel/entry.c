@@ -17,6 +17,6 @@ void kern_entry(uptr dtreeLocation){
     }
     dev_fdt_dump(&info);
 
-    kern_begin_sched();
+    //kern_begin_sched();
     while(1){continue;}
 }

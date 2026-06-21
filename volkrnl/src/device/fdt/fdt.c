@@ -76,7 +76,6 @@ u32 dev_fdt_print_node(FdtInfo* info, u32* cells, u32 cellSize, u32 offset){
             }
             case FDT_END_NODE:{
                 rtl_print("FDT_END_NODE\n");
-                //offset++;
                 return offset;
                 break;
             }
@@ -101,7 +100,6 @@ u32 dev_fdt_print_node(FdtInfo* info, u32* cells, u32 cellSize, u32 offset){
 
 
 // its a mess and it doesn't even work, gotta fix it
-
 void dev_fdt_dump(FdtInfo* info){
     u32* cells = (u32*)(info->fdtAddress + info->header.dtStructOffset);
     uptr size = info->header.dtStructSize / sizeof(u32);
