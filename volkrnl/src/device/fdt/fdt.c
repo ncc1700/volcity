@@ -85,7 +85,7 @@ u32 dev_fdt_print_node(FdtInfo* info, u32* cells, u32 cellSize, u32 offset){
                 FdtProp* prop = (FdtProp*)(cells + offset);
                 rtl_printf("\t\t%s, %d, 0x%x\n", 
                         dev_fdt_get_string(info, rtl_bswap32(prop->nameOffset)), 
-                        rtl_bswap32(prop->length), rtl_bswap32(prop->nameOffset));
+                        rtl_bswap32(prop->length), rtl_bswap32(cells[offset + 2]));
                 offset += (rtl_align_up(rtl_bswap32(prop->length), 4) / 4)  + 2;
                 break;
             }
