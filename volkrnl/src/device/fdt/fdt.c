@@ -60,7 +60,7 @@ void dev_fdt_print_all_strings(FdtInfo* info){
 
 
 // absoloutly horrendous code
-
+// its also very unsafe, TODO: make it safe!!!
 u32 dev_fdt_print_node(FdtInfo* info, u32* cells, u32 cellSize, u32 offset){
     while(offset < cellSize){
         u32 value = rtl_bswap32(cells[offset]);
