@@ -59,10 +59,12 @@ void dev_fdt_print_all_strings(FdtInfo* info){
 }
 
 
+// absoloutly horrendous code
+
 u32 dev_fdt_print_node(FdtInfo* info, u32* cells, u32 cellSize, u32 offset){
     while(offset < cellSize){
-        u32 idk = rtl_bswap32(cells[offset]);
-        switch(idk){
+        u32 value = rtl_bswap32(cells[offset]);
+        switch(value){
             case FDT_BEGIN_NODE:{
                 rtl_print("FDT_BEGIN_NODE\n");
                 const char* name = (const char*)(cells + offset + 1);
@@ -74,7 +76,7 @@ u32 dev_fdt_print_node(FdtInfo* info, u32* cells, u32 cellSize, u32 offset){
             }
             case FDT_END_NODE:{
                 rtl_print("FDT_END_NODE\n");
-                offset++;
+                //offset++;
                 return offset;
                 break;
             }
@@ -89,7 +91,7 @@ u32 dev_fdt_print_node(FdtInfo* info, u32* cells, u32 cellSize, u32 offset){
                 break;
             }
             default:{
-                rtl_printf("\t\tunknown data at %d (idk is %d)\n", offset, idk);
+                rtl_printf("\t\tunknown data at %d (index is %d)\n", offset, value);
                 offset+=2;
             }
         }
@@ -107,6 +109,7 @@ void dev_fdt_dump(FdtInfo* info){
     rtl_print("\n");
     rtl_print(style);
     for(u32 i = 0; i < size; i++){
+        
         if(rtl_bswap32(cells[i]) != FDT_BEGIN_NODE) continue;
         rtl_printf("node found at %d!\n", i);
         i = dev_fdt_print_node(info, cells, size, i);
