@@ -31,12 +31,10 @@ typedef struct _FdtHeader {
 
 typedef struct _FdtInfo {
     FdtHeader header;
+    u32* cells;
+    usize cellAmount;
     uptr fdtAddress;
 } FdtInfo;
-
-typedef struct _FdtNode {
-    uptr offset;
-} FdtNode;
 
 typedef struct _FdtProp {
     u32 length;
@@ -47,12 +45,13 @@ typedef struct _FdtProp {
 boolean dev_fdt_init(FdtInfo* info, uptr address);
 const char* dev_fdt_get_string(FdtInfo* info, u32 offset);
 void dev_fdt_print_all_strings(FdtInfo* info);
+void dev_fdt_print_node(FdtInfo* info, u32 offset);
 void dev_fdt_dump(FdtInfo* info);
-
-
-
-
-
+boolean dev_fdt_find_node(FdtInfo* info, const char* nodeName, u32* offset);
+FdtProp* dev_fdt_get_prop_ex(FdtInfo* info, u32 nodeOffset, const char* propName, u32* propOffset);
+FdtProp* dev_fdt_get_prop(FdtInfo* info, u32 nodeOffset, const char* propName);
+u32 dev_fdt_get_value_from_prop(FdtInfo* info, u32 propOffset);
+//const char* dev_fdt_get_string_from_prop(FdtInfo* info, u32 propOffset);
 
 
 
