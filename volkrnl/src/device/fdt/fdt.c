@@ -218,6 +218,13 @@ u32 dev_fdt_get_value_from_prop(FdtInfo* info, u32 propOffset){
     return rtl_bswap32(info->cells[propOffset + 2]);
 }
 
+void dev_fdt_get_array_from_prop(FdtInfo* info, u32 propOffset, uptr* array, usize length){
+    u32 offset = propOffset + 2;
+    for(usize i = 0; i < length; i++){
+        array[i] = rtl_bswap32(info->cells[offset + i]);
+    }
+}
+
 // doesn't work
 // const char* dev_fdt_get_string_from_prop(FdtInfo* info, u32 propOffset){
 //     return dev_fdt_get_string(info, rtl_bswap32(info->cells[propOffset + 2]));

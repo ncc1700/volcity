@@ -17,7 +17,7 @@ void kern_entry(uptr dtreeLocation){
         rtl_printf("valid fdt! magic is 0x%x\n", info.header.magic);
     }
     u32 node = 0;
-    result = dev_fdt_find_node(&info, "poweroff", &node);
+    result = dev_fdt_find_node(&info, "memory", &node);
     if(result == FALSE){
         rtl_printf("couldn't find node!\n");
     } else {
@@ -25,11 +25,14 @@ void kern_entry(uptr dtreeLocation){
         dev_fdt_print_node(&info, node);
     }
     u32 propOffset = 0;
-    FdtProp* prop = dev_fdt_get_prop_ex(&info, node, "value", &propOffset);
+    FdtProp* prop = dev_fdt_get_prop_ex(&info, node, "reg", &propOffset);
     if(prop == NULL){
         rtl_printf("couldn't find prop!\n");
-    } else {
-        rtl_printf("found prop! value is 0x%x\n", dev_fdt_get_value_from_prop(&info, propOffset));
+    }
+    uptr array[4] = {0};
+    dev_fdt_get_array_from_prop(&info, propOffset, array, 4);
+    for(int i = 0; i < 4; i++){
+        rtl_printf("i: 0x%x\n", array[i]);
     }
 
     while(1){continue;}

@@ -51,6 +51,7 @@ boolean dev_fdt_find_node(FdtInfo* info, const char* nodeName, u32* offset);
 FdtProp* dev_fdt_get_prop_ex(FdtInfo* info, u32 nodeOffset, const char* propName, u32* propOffset);
 FdtProp* dev_fdt_get_prop(FdtInfo* info, u32 nodeOffset, const char* propName);
 u32 dev_fdt_get_value_from_prop(FdtInfo* info, u32 propOffset);
+void dev_fdt_get_array_from_prop(FdtInfo* info, u32 propOffset, uptr* array, usize length);
 //const char* dev_fdt_get_string_from_prop(FdtInfo* info, u32 propOffset);
 
 
