@@ -1,6 +1,7 @@
 #include <rtl/string.h>
 #include <rtl/mem.h>
 #include <rtl/math.h>
+#include <rtl/print.h>
 
 usize rtl_get_cstring_len(const char* src){
     usize i = 0;
@@ -11,19 +12,45 @@ usize rtl_get_cstring_len(const char* src){
     return i;
 }
 
+// broken
 isize rtl_compare_cstring_ex(const char* first, const char* second, usize maxLength){
-    return rtl_compare_mem((const void*)first, (const void*)second, maxLength);
+    for(usize i = 0; i < maxLength; i++){
+        if(first[i] != second[i]){
+            return first[i] - second[i];
+        }
+    }
+    return 0;
 }
-// slow
+
+// broken
 isize rtl_compare_cstring(const char* first, const char* second){
     usize firstSize = rtl_get_cstring_len(first);
     usize secondSize = rtl_get_cstring_len(second);
+    // bruh
     if(firstSize > secondSize){
-        return first[secondSize - 1] - second[secondSize - 1];
+        return -1; 
     } else if(firstSize < secondSize){
-        return first[firstSize - 1] - second[firstSize - 1];
+        return 1;
     }
     return rtl_compare_cstring_ex(first, second, firstSize);
+}
+
+boolean rtl_equal_cstring_ex(const char* first, const char* second, usize maxLength){
+    for(usize i = 0; i < maxLength; i++){
+        if(first[i] != second[i]){
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
+
+boolean rtl_equal_cstring(const char* first, const char* second){
+    usize firstSize = rtl_get_cstring_len(first);
+    usize secondSize = rtl_get_cstring_len(second);
+    if(firstSize != secondSize){
+        return FALSE;
+    }
+    return rtl_equal_cstring_ex(first, second, firstSize);
 }
 
 

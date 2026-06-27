@@ -3,6 +3,13 @@
 
 
 
+
+boolean plat_uart_setup(){
+    // will do some actual setup later
+    // for now it'll just be us using the default shit
+    return TRUE;
+}
+
 void plat_uart_putchar(char c){
     *(u8*)UART_BASE = c;
 }

@@ -2,16 +2,17 @@
 
 
 .global plat_entry
-.extern kern_entry
-
+.extern plat_setup
+.extern exception_handler
 
 
 plat_entry:
     la gp, g_top
     la sp, s_top
     csrw satp, 0
-    la t0, kern_entry
-    csrw mepc, t0
+    la t0, plat_setup
+    csrw mepc, t0    
     mv a0, a1
-    tail kern_entry
+    la a1, k_end
+    tail plat_setup
     

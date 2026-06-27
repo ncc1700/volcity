@@ -12,6 +12,7 @@
 .global arch_set_mscratch
 .global arch_set_mstatus
 
+.extern arch_print_registers
 .section .text
 
 
@@ -147,9 +148,7 @@ arch_set_mtvec:
     addi sp, sp, -16
     sd ra, 0(sp)
     sd s0, 8(sp)
-
     csrw mtvec, a0
-
     ld ra, 0(sp)
     ld s0, 8(sp)
     addi sp, sp, 16

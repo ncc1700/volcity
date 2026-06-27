@@ -1,39 +1,26 @@
-#include <types.h>
-#include <platform/platform.h>
 #include <rtl/print.h>
-#include <arch/arch.h>
-#include <device/fdt/fdt.h>
+#include <memory/memory.h>
 #include <kernel/kernel.h>
+#include <arch/arch.h>
 
-
-void kern_entry(uptr dtreeLocation){
+void kern_entry(MemoryMap* memMap, InitRdInfo* info){    
     arch_setup();
-    plat_setup();
-    
     rtl_printf("\n\nVolcity\n\tbuilt on %s at %s\n\n", __DATE__, __TIME__);    
-    FdtInfo info = {0};
-    boolean result = dev_fdt_init(&info, dtreeLocation);
-    if(result == TRUE){
-        rtl_printf("valid fdt! magic is 0x%x\n", info.header.magic);
-    }
-    u32 node = 0;
-    result = dev_fdt_find_node(&info, "memory", &node);
-    if(result == FALSE){
-        rtl_printf("couldn't find node!\n");
-    } else {
-        rtl_printf("found! offset is %d\n", node);
-        dev_fdt_print_node(&info, node);
-    }
-    u32 propOffset = 0;
-    FdtProp* prop = dev_fdt_get_prop_ex(&info, node, "reg", &propOffset);
-    if(prop == NULL){
-        rtl_printf("couldn't find prop!\n");
-    }
-    uptr array[4] = {0};
-    dev_fdt_get_array_from_prop(&info, propOffset, array, 4);
-    for(int i = 0; i < 4; i++){
-        rtl_printf("i: 0x%x\n", array[i]);
+    usize usableMemory = 0;
+    
+    for(usize i = 0; i < memMap->amount; i++){
+        MemoryEntry entry = memMap->entries[i];
+        rtl_printf("base: 0x%lx, end: 0x%lx, size: %ld\n", 
+            entry.base, entry.base + entry.size, entry.size);
+        if(entry.type == MEM_TYPE_USABLE){
+            usableMemory += entry.size;
+        }
     }
 
+   
+    
     while(1){continue;}
 }
+
+
+    

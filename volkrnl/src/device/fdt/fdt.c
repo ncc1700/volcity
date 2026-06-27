@@ -157,7 +157,7 @@ boolean dev_fdt_find_node(FdtInfo* info, const char* nodeName, u32* nodeOffset){
     for(u32 i = 0; i < info->cellAmount; i++){
         if(rtl_bswap32(info->cells[i]) != FDT_BEGIN_NODE) continue;
         const char* name = (const char*)(info->cells + i + 1);
-        if(rtl_compare_cstring(name, nodeName) == 0){
+        if(rtl_equal_cstring(name, nodeName)){
             *nodeOffset = i;
             return TRUE;
         } else {
@@ -186,12 +186,10 @@ FdtProp* dev_fdt_get_prop_ex(FdtInfo* info, u32 nodeOffset, const char* propName
                 break;
             }
             case FDT_PROP:{
-                rtl_print("\tFDT_PROP\n");
                 offset++;
                 FdtProp* prop = (FdtProp*)(info->cells + offset);
                 const char* name = dev_fdt_get_string(info, rtl_bswap32(prop->nameOffset));
-                rtl_printf("name is %s\n", name);
-                if(rtl_compare_cstring(propName, name) == 0){
+                if(rtl_equal_cstring(propName, name)){
                     *propOffset = offset;
                     return prop;
                 }

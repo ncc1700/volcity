@@ -1,5 +1,6 @@
 
 QEMU_MEMORY=96M
+QEMU_CPU=sifive-u54
 QEMU_KERNEL=output-qvirt-riscv64/system/volkrnl.elf
 QEMU_INITRD=output-qvirt-riscv64/initfs.tar
 
@@ -13,18 +14,18 @@ qemu-riscv64:
 	rm -f output-qvirt-riscv64/makefile
 	echo -e "all:\n\t tar -cvf initfs.tar system/ sdk/" >> output-qvirt-riscv64/makefile
 	cd output-qvirt-riscv64 && make
-	qemu-system-riscv64 -machine virt \
+	qemu-system-riscv64 -cpu $(QEMU_CPU) -machine virt \
 		-bios none -kernel $(QEMU_KERNEL) -initrd $(QEMU_INITRD) -m $(QEMU_MEMORY) \
-		-device ramfb -serial mon:stdio -display sdl 	
+		-device ramfb -serial mon:stdio -display sdl 
 
 rv64-debug:
-	qemu-system-riscv64 -machine virt \
+	qemu-system-riscv64 -cpu $(QEMU_CPU) -machine virt \
 		-bios none -kernel $(QEMU_KERNEL) -initrd $(QEMU_INITRD)  -m $(QEMU_MEMORY) \
 		-device ramfb -serial mon:stdio -display sdl -S -s
 
 
-dump_dtb:
-	qemu-system-riscv64 -machine virt \
+dump-dtb:
+	qemu-system-riscv64 -cpu $(QEMU_CPU) -machine virt \
 		-bios none -kernel $(QEMU_KERNEL) -initrd $(QEMU_INITRD) -m $(QEMU_MEMORY) \
 		-device ramfb -serial mon:stdio -display sdl -machine dumpdtb=qemu.dtb
 	dtc qemu.dtb -o qemu.dtc
