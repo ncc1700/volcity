@@ -11,6 +11,7 @@ qvirt-riscv64:
 
 qemu-riscv64:
 	make qvirt-riscv64
+	cp LICENSE.txt output-qvirt-riscv64/system/LICENSE.txt
 	rm -f output-qvirt-riscv64/makefile
 	echo -e "all:\n\t tar -cvf initfs.tar system/ sdk/ apps/" >> output-qvirt-riscv64/makefile
 	cd output-qvirt-riscv64 && make

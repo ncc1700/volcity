@@ -20,10 +20,11 @@ void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){
     rtl_print("\n\n");
     ustar_list_all_from_memory(rdInfo->base);
     rtl_print("\n\n");
-    UStarHeader* fileHeader = ustar_find_file_from_memory(rdInfo->base, "system/test.txt");
+    UStarHeader* fileHeader = ustar_find_file_from_memory(rdInfo->base, "system/LICENSE.txt");
     if(fileHeader != NULL){
         const char* text = ustar_get_filedata_from_memory(fileHeader);
-        rtl_printf("%s\n", text);
+        rtl_print(text);
+        rtl_print("\n");
     } else rtl_printf("couldn't find file");
     
     //UStarHeader* header = ustar_get_header(rdInfo->base, 512);
