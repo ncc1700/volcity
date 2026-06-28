@@ -1,5 +1,6 @@
 includes("volkrnl")
 includes("sdk/rtl")
+includes("userland")
 
 option("varch")
     set_default("riscv64")
@@ -15,6 +16,7 @@ target("volcity")
     set_kind("phony")
     set_options("varch", "vplatform")
     add_deps("volkrnl")
+    add_deps("userland")
 
 
 
@@ -25,5 +27,8 @@ toolchain("clang-riscv64")
     set_toolset("as", "clang")
     set_toolset("ld", "ld.lld")
 toolchain_end()
+
+
+
 
 

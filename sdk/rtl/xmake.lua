@@ -12,4 +12,4 @@ target("rtl")
     end
     add_cflags("-target $(varch)-none-elf -mcmodel=medany -ffreestanding -nostdlib -Wall -Werror -D_VA_ARG", {force = true})
     add_asflags("-target $(varch)-none-elf -mcmodel=medany -ffreestanding -nostdlib -Wall -Werror", {force = true})
-
+     

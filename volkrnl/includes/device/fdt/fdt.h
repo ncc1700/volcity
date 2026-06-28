@@ -16,6 +16,7 @@
 #define FDT_PROP 0x00000003
 #define FDT_NOP 0x00000004
 #define FDT_END 0x00000009
+
 typedef struct _FdtHeader {
     u32 magic;
     u32 totalSize;

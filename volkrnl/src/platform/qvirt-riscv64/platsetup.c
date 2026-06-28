@@ -79,7 +79,6 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     if(arch_get_mtvec() == 0x0){
         kern_panic("mtvec is broken\n");
     }
-    
     FdtInfo info = {0};
     boolean result = dev_fdt_init(&info, dTreeBase);
     if(result == FALSE){

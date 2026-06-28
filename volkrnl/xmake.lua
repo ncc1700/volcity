@@ -9,6 +9,7 @@ target("volkrnl")
     set_filename("volkrnl.elf")
     add_includedirs("includes", "../sdk/includes")
     add_files("src/rtl/*.c", "src/kernel/*.c", "src/device/fdt/*.c")
+    add_files("src/fs/**/*.c")
     add_files("src/platform/$(vplatform)/*.S", 
               "src/platform/$(vplatform)/*.c")    
     add_files("src/arch/$(varch)/*.S", 

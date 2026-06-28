@@ -24,7 +24,7 @@ usize rtl_bin_to_cstring(const usize number, char* src, usize len);
 usize rtl_cstring_to_hex_ex(const char* src, usize len, boolean shouldFail);
 usize rtl_cstring_to_hex(const char* src, usize len);
 usize rtl_hex_to_cstring(const usize number, char* src, usize len);
-
+usize rtl_oct_string_to_usize(const unsigned char* octStr, usize len);
 
 
 

@@ -10,8 +10,14 @@ extern void exception_handler();
 
 
 void arch_setup(){
+    uptr mtvecAddr = (uptr)exception_handler << 2 | 0x0;
     
-    arch_set_mtvec((uptr)exception_handler);
+    if ((mtvecAddr & 3) >= 2) {
+        rtl_print("reserved mode, might break on QEMU\n");
+    }
+    rtl_printf("e_addr: 0x%lx, mtvecAddr: 0x%lx\n", exception_handler, mtvecAddr);
+
+    arch_set_mtvec((uptr)mtvecAddr);
 }
  
 

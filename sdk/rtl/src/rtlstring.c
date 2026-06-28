@@ -167,8 +167,6 @@ usize rtl_bin_to_cstring(const usize number, char* src, usize len){
     return digits;
 }
 
-
-
 static inline boolean char_is_hex(char c){
     if(c <= '9' && c >= '0'){
         return TRUE;
@@ -280,5 +278,17 @@ usize rtl_hex_to_cstring(const usize number, char* src, usize len){
     }
     src[index] = '\0';
     return digits;
+}
+
+usize rtl_oct_string_to_usize(const unsigned char* octStr, usize len){
+    usize result = 0;
+    unsigned char* str = (unsigned char*)octStr;
+    while(len > 0){
+        len--;
+        result *= 8;
+        result += *str - '0';
+        str++;
+    }
+    return result;
 }
 

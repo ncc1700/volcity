@@ -12,11 +12,11 @@ qvirt-riscv64:
 qemu-riscv64:
 	make qvirt-riscv64
 	rm -f output-qvirt-riscv64/makefile
-	echo -e "all:\n\t tar -cvf initfs.tar system/ sdk/" >> output-qvirt-riscv64/makefile
+	echo -e "all:\n\t tar -cvf initfs.tar system/ sdk/ apps/" >> output-qvirt-riscv64/makefile
 	cd output-qvirt-riscv64 && make
 	qemu-system-riscv64 -cpu $(QEMU_CPU) -machine virt \
 		-bios none -kernel $(QEMU_KERNEL) -initrd $(QEMU_INITRD) -m $(QEMU_MEMORY) \
-		-device ramfb -serial mon:stdio -display sdl 
+		-device ramfb -serial mon:stdio -display sdl -d unimp
 
 rv64-debug:
 	qemu-system-riscv64 -cpu $(QEMU_CPU) -machine virt \

@@ -2,9 +2,9 @@
 #include <memory/memory.h>
 #include <kernel/kernel.h>
 #include <arch/arch.h>
+#include <fs/ustar/ustar.h>
 
-void kern_entry(MemoryMap* memMap, InitRdInfo* info){    
-    arch_setup();
+void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){    
     rtl_printf("\n\nVolcity\n\tbuilt on %s at %s\n\n", __DATE__, __TIME__);    
     usize usableMemory = 0;
     
@@ -16,9 +16,19 @@ void kern_entry(MemoryMap* memMap, InitRdInfo* info){
             usableMemory += entry.size;
         }
     }
-
-   
     
+    rtl_print("\n\n");
+    ustar_list_all_from_memory(rdInfo->base);
+    rtl_print("\n\n");
+    UStarHeader* fileHeader = ustar_find_file_from_memory(rdInfo->base, "system/test.txt");
+    if(fileHeader != NULL){
+        const char* text = ustar_get_filedata_from_memory(fileHeader);
+        rtl_printf("%s\n", text);
+    } else rtl_printf("couldn't find file");
+    
+    //UStarHeader* header = ustar_get_header(rdInfo->base, 512);
+    //rtl_printf("%s, size: %d\n", header->fileName, ustar_get_filesize_from_header(header));
+    //rtl_printf("??\n");
     while(1){continue;}
 }
 
