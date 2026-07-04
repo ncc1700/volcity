@@ -5,7 +5,7 @@
 
 extern void exception_handler();
 
-
+// stupid ass hack
 void idk(){
     exception_handler();
 }

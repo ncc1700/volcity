@@ -21,7 +21,8 @@ void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){
     }
     DEBUG_INFO("usable memory: %d\n\n", usableMemory);
     ustar_list_all_from_memory(rdInfo->base);
-    
+        *(u64*)0x19022029202 = 'h';   
+
     while(1){continue;}
 }
 
