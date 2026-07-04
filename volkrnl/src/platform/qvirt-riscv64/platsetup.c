@@ -109,31 +109,35 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     memMap.sizeOfMemory = memSize;
     
     // very very messy code, bc im stupid =(
-    memEntries[0].base = memBase;
-    memEntries[0].size = kernelEndpoint - memBase;
+    memEntries[0].base = 0x0;
+    memEntries[0].size = memBase;
     memEntries[0].type = MEM_TYPE_UNUSABLE;
-    //rtl_printf("binary size is %ld, kernelEndpoint: 0x%x\n", memEntries[0].size, kernelEndpoint);
-    memEntries[1].base = kernelEndpoint;
-    memEntries[1].size = initRdBase - kernelEndpoint;
-    memEntries[1].type = MEM_TYPE_USABLE;
     
-    memEntries[2].base = initRdBase;
-    memEntries[2].size = initRdSize;
-    memEntries[2].type = MEM_TYPE_UNUSABLE;
+    memEntries[1].base = memBase;
+    memEntries[1].size = kernelEndpoint - memBase;
+    memEntries[1].type = MEM_TYPE_UNUSABLE;
+    //rtl_printf("binary size is %ld, kernelEndpoint: 0x%x\n", memEntries[0].size, kernelEndpoint);
+    memEntries[2].base = kernelEndpoint;
+    memEntries[2].size = initRdBase - kernelEndpoint;
+    memEntries[2].type = MEM_TYPE_USABLE;
+    
+    memEntries[3].base = initRdBase;
+    memEntries[3].size = initRdSize;
+    memEntries[3].type = MEM_TYPE_UNUSABLE;
 
-    memEntries[3].base = initRdBase + initRdSize;
-    memEntries[3].size = dTreeBase - memEntries[3].base;
-    memEntries[3].type = MEM_TYPE_USABLE;
+    memEntries[4].base = initRdBase + initRdSize;
+    memEntries[4].size = dTreeBase - memEntries[3].base;
+    memEntries[4].type = MEM_TYPE_USABLE;
 
-    memEntries[4].base = dTreeBase;
-    memEntries[4].size = info.header.totalSize;
-    memEntries[4].type = MEM_TYPE_UNUSABLE;
+    memEntries[5].base = dTreeBase;
+    memEntries[5].size = info.header.totalSize;
+    memEntries[5].type = MEM_TYPE_UNUSABLE;
 
-    memEntries[5].base = dTreeBase + info.header.totalSize;
-    memEntries[5].size = (memBase + memSize) - memEntries[5].base;
-    memEntries[5].type = MEM_TYPE_USABLE;
+    memEntries[6].base = dTreeBase + info.header.totalSize;
+    memEntries[6].size = (memBase + memSize) - memEntries[5].base;
+    memEntries[6].type = MEM_TYPE_USABLE;
     memMap.entries = memEntries;
-    memMap.amount = 6;
+    memMap.amount = 7;
     
     //*(u64*)(0x90290292) = 'h';
     

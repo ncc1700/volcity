@@ -9,6 +9,8 @@
 
 #include <types.h>
 
+
+
 typedef enum _MemoryType {
     MEM_TYPE_USABLE,
     MEM_TYPE_UNUSABLE
@@ -20,17 +22,16 @@ typedef struct _MemoryEntry {
     MemoryType type;
 } MemoryEntry;
 
+typedef struct _Arena {
+    uptr base;
+    uptr size;
+} Arena;
+
 typedef struct _MemoryMap {
     MemoryEntry* entries;
     usize amount;
     usize sizeOfMemory;
 } MemoryMap;
-
-
-
-
-
-
 
 
 

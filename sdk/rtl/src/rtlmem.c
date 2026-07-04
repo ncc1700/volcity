@@ -58,6 +58,7 @@ usize rtl_align_up(usize value, usize alignment){
     return ((value + alignment - 1) / alignment) * alignment;
 }
 
+
 // needed by most C compilers like clang
 // do NOT remove these, even if we aren't using it
 
@@ -72,3 +73,4 @@ void* memset(void* dest, int value, usize len){
 int memcmp(const void* ptr1, const void* ptr2, usize len){
     return rtl_compare_mem(ptr1, ptr2, len);
 }
+

@@ -1,5 +1,5 @@
 
-QEMU_MEMORY=96M
+QEMU_MEMORY=4.1M
 QEMU_CPU=sifive-u54
 QEMU_KERNEL=output-qvirt-riscv64/system/volkrnl.elf
 QEMU_INITRD=output-qvirt-riscv64/initfs.tar

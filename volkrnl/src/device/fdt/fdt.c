@@ -41,7 +41,6 @@ const char* dev_fdt_get_string(FdtInfo* info, u32 offset){
 }
 
 void dev_fdt_print_all_strings(FdtInfo* info){
-    uptr address = info->fdtAddress + info->header.dtStringsOffset;
     uptr offset = 0;
     const char* style = "------------------------------------------------------------\n";
     rtl_print("\n");

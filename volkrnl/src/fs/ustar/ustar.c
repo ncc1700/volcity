@@ -33,7 +33,7 @@ UStarHeader* ustar_find_file_from_memory(uptr address, const char* fileName){
     uptr offset = 0;
     UStarHeader* header = ustar_get_header_from_memory(address, offset);
     do {
-        if(rtl_equal_cstring(header->fileName, fileName)){
+        if(rtl_equal_cstring((const char*)header->fileName, fileName)){
             return header;
         }
         usize fileSize = ustar_get_filesize_from_header(header);
