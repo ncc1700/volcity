@@ -3,12 +3,15 @@
 .global arch_get_mepc
 .global arch_get_mcause
 .global arch_get_mtvec
+.global arch_get_stvec
+
 .global arch_get_mscratch
 .global arch_get_mstatus
 
 .global arch_set_mie
 .global arch_set_mcause
 .global arch_set_mtvec
+.global arch_set_stvec
 .global arch_set_mscratch
 .global arch_set_mstatus
 
@@ -74,6 +77,18 @@ arch_get_mtvec:
     sd s0, 8(sp)
 
     csrr a0, mtvec
+
+    ld ra, 0(sp)
+    ld s0, 8(sp)
+    addi sp, sp, 16
+    jr ra
+
+arch_get_stvec:
+    addi sp, sp, -16
+    sd ra, 0(sp)
+    sd s0, 8(sp)
+
+    csrr a0, stvec
 
     ld ra, 0(sp)
     ld s0, 8(sp)
@@ -154,6 +169,15 @@ arch_set_mtvec:
     addi sp, sp, 16
     jr ra
 
+arch_set_stvec:
+    addi sp, sp, -16
+    sd ra, 0(sp)
+    sd s0, 8(sp)
+    csrw stvec, a0
+    ld ra, 0(sp)
+    ld s0, 8(sp)
+    addi sp, sp, 16
+    jr ra
 
 arch_set_mscratch:
     addi sp, sp, -16

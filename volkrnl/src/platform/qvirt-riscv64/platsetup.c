@@ -76,8 +76,8 @@ static inline boolean retrieve_initrd_info(FdtInfo* info, uptr* base, usize* siz
 void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     plat_uart_setup();
     arch_setup();
-    if(arch_get_mtvec() == 0x0){
-        kern_panic("mtvec is broken\n");
+    if(arch_get_stvec() == 0x0 && arch_get_mtvec() == 0x0){
+        kern_panic("mtvec and stvec are broken\n");
     }
     FdtInfo info = {0};
     boolean result = dev_fdt_init(&info, dTreeBase);
