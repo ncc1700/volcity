@@ -18,7 +18,9 @@ void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){
             usableMemory += entry.size;
         }
     }
-    rtl_printf("usable memory: %d\n", usableMemory);
+    rtl_printf("usable memory: %d\n\n", usableMemory);
+
+    ustar_list_all_from_memory(rdInfo->base);
     while(1){continue;}
 }
 

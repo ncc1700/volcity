@@ -8,7 +8,6 @@ UStarHeader* ustar_get_header_from_memory(uptr address, uptr offset){
     if(rtl_equal_cstring_ex((const char*)header->uStarMagic, "ustar", 5)){
         return header;
     } else {
-       // rtl_printf("invalid header, returned %s\n", (const char*)header->uStarMagic);
         return NULL;
     }
 }
