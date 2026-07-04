@@ -12,14 +12,13 @@ void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){
     
     for(usize i = 0; i < memMap->amount; i++){
         MemoryEntry entry = memMap->entries[i];
-        rtl_printf("base: 0x%lx, end: 0x%lx, size: %ld, type: %d\n", 
+        DEBUG_INFO("base: 0x%lx, end: 0x%lx, size: %ld, type: %d\n", 
             entry.base, entry.base + entry.size, entry.size, entry.type);
         if(entry.type == MEM_TYPE_USABLE){
             usableMemory += entry.size;
         }
     }
-    rtl_printf("usable memory: %d\n\n", usableMemory);
-
+    DEBUG_INFO("usable memory: %d\n\n", usableMemory);
     ustar_list_all_from_memory(rdInfo->base);
     while(1){continue;}
 }

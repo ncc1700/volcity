@@ -22,7 +22,7 @@ void ustar_list_all_from_memory(uptr address){
     do {
         usize fileSize = ustar_get_filesize_from_header(header);
         offset += (((fileSize + (sizeof(UStarHeader) - 1)) / sizeof(UStarHeader)) + 1) * sizeof(UStarHeader);
-        rtl_printf("name: %s, size: %d\n", header->fileName, ustar_get_filesize_from_header(header));
+        DEBUG_INFO("name: %s, size: %d\n", header->fileName, ustar_get_filesize_from_header(header));
         header = ustar_get_header_from_memory(address, offset);
     } while(header != NULL && rtl_equal_cstring_ex((const char*)header->uStarMagic, "ustar", 5));
 }

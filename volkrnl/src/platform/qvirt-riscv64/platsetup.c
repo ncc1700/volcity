@@ -20,13 +20,13 @@ static inline boolean retrieve_memory_info(FdtInfo* info, uptr* base, usize* siz
     u32 node = 0;
     boolean result = dev_fdt_find_node(info, "memory@80000000", &node);
     if(result == FALSE){
-        rtl_print("unable to locate memory node\n");
+        DEBUG_FAIL("unable to locate memory node\n");
         return FALSE;
     } 
     u32 propOffset = 0;
     FdtProp* prop = dev_fdt_get_prop_ex(info, node, "reg", &propOffset);
     if(prop == NULL){
-        rtl_print("unable to locate reg prop in memory node\n");
+        DEBUG_FAIL("unable to locate reg prop in memory node\n");
         return FALSE;
     }
     
@@ -42,13 +42,13 @@ static inline boolean retrieve_initrd_info(FdtInfo* info, uptr* base, usize* siz
     u32 node = 0;
     boolean result = dev_fdt_find_node(info, "chosen", &node);
     if(result == FALSE){
-        rtl_print("unable to locate chosen node\n");
+        DEBUG_FAIL("unable to locate chosen node\n");
         return FALSE;
     }     
     u32 basePropOffset = 0;
     FdtProp* baseProp = dev_fdt_get_prop_ex(info, node, "linux,initrd-start", &basePropOffset);
     if(baseProp == NULL){
-        rtl_print("unable to locate initrd-start prop in memory node\n");
+        DEBUG_FAIL("unable to locate initrd-start prop in memory node\n");
         return FALSE;
     }
 
@@ -60,7 +60,7 @@ static inline boolean retrieve_initrd_info(FdtInfo* info, uptr* base, usize* siz
     u32 endPropOffset = 0;
     FdtProp* endProp = dev_fdt_get_prop_ex(info, node, "linux,initrd-end", &endPropOffset);
     if(endProp == NULL){
-        rtl_print("unable to locate initrd-end prop in memory node\n");
+        DEBUG_FAIL("unable to locate initrd-end prop in memory node\n");
         return FALSE;
     }
 
@@ -82,7 +82,7 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     FdtInfo info = {0};
     boolean result = dev_fdt_init(&info, dTreeBase);
     if(result == FALSE){
-        rtl_printf("invalid fdt! magic returned is 0x%x\n", info.header.magic);
+        DEBUG_FAIL("invalid fdt! magic returned is 0x%x\n", info.header.magic);
         kern_panic("invalid fdt");
     }
     

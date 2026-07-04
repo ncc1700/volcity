@@ -13,7 +13,7 @@ boolean dev_fdt_init(FdtInfo* info, uptr address){
     info->fdtAddress = address;
     info->header.magic = rtl_bswap32(initial->magic);
     if(info->header.magic != 0xd00dfeed){
-        rtl_printf("header magic is not 0xd00dfeed, its 0x%x\n", info->header.magic);
+        DEBUG_FAIL("header magic is not 0xd00dfeed, its 0x%x\n", info->header.magic);
         return FALSE;
     }
     info->header.totalSize = rtl_bswap32(initial->totalSize);
