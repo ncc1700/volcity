@@ -1,12 +1,16 @@
 .global exception_handler
 
 .extern exception_parser
+.extern rtl_print
 .section .text
 
+string:
+    .asciz "hio"
 
 
 
 exception_handler:
+  
     addi sp, sp, -16
     sd ra, 8(sp)
     sd s0, 0(sp)

@@ -2,12 +2,13 @@
 #include <memory/memory.h>
 #include <kernel/kernel.h>
 #include <arch/arch.h>
+#include <arch/riscv64/archdef.h>
+
 #include <fs/ustar/ustar.h>
 #include <rtl/mem.h>
-void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){    
+void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){ 
     rtl_printf("\n\nVolcity Version INDEV (%s:%s)\n", __DATE__, __TIME__);   
     rtl_printf("? System Processer [%ldB Memory]\n\n", memMap->sizeOfMemory);
-
     usize usableMemory = 0;
     
     for(usize i = 0; i < memMap->amount; i++){
@@ -20,6 +21,7 @@ void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){
     }
     DEBUG_INFO("usable memory: %d\n\n", usableMemory);
     ustar_list_all_from_memory(rdInfo->base);
+    
     while(1){continue;}
 }
 

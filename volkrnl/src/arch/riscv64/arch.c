@@ -6,8 +6,12 @@
 extern void exception_handler();
 
 
+void idk(){
+    exception_handler();
+}
+
 void arch_setup(){
-    arch_set_mtvec((uptr)exception_handler & ~0b11);
+    arch_set_mtvec((uptr)idk & ~0b11);
 }
  
 

@@ -79,6 +79,8 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     if(arch_get_stvec() == 0x0 && arch_get_mtvec() == 0x0){
         kern_panic("mtvec and stvec are broken\n");
     }
+        rtl_printf("mtvec: 0x%lx\n", arch_get_mtvec());
+
     FdtInfo info = {0};
     boolean result = dev_fdt_init(&info, dTreeBase);
     if(result == FALSE){
@@ -99,7 +101,7 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     if(result == FALSE){
         kern_panic("couldn't receive initrd info from device tree");
     }
-
+    
     // rtl_printf("memory base is 0x%lx, memory size is %ld\n", memBase, memSize);
     // rtl_printf("initrd base is 0x%lx, initrd size is %ld\n", initRdBase, initRdSize);
     // rtl_printf("dTreeLocation is 0x%lx\n", dTreeBase);
@@ -138,6 +140,7 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     memEntries[6].type = MEM_TYPE_USABLE;
     memMap.entries = memEntries;
     memMap.amount = 7;
+    
     
     //*(u64*)(0x90290292) = 'h';
     
