@@ -36,7 +36,7 @@ typedef unsigned int u32;
 typedef int i32;
 
 typedef unsigned long u64;
-typedef long i64; 
+typedef long i64;
 
 typedef u8 boolean;
 

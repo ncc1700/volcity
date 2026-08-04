@@ -102,13 +102,13 @@ void rtl_format(char* buf, usize len, const char* format, va_list list){
                 }
                 default:
                     break;
-            }  
+            }
             format++;
         } else {
             buf[bufIndex] = *format;
             bufIndex++;
             format++;
-        }   
+        }
     }
     buf[bufIndex] = '\0';
 }

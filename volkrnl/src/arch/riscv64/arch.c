@@ -13,7 +13,7 @@ void idk(){
 void arch_setup(){
     arch_set_mtvec((uptr)idk & ~0b11);
 }
- 
+
 
 void arch_halt(){
     while(1){continue;}

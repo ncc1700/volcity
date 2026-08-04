@@ -10,11 +10,10 @@ string:
 
 
 exception_handler:
-  
     addi sp, sp, -16
     sd ra, 8(sp)
     sd s0, 0(sp)
-    
+
     call exception_parser
 
     csrr t0, mepc

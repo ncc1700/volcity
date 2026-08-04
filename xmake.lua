@@ -3,12 +3,12 @@ includes("sdk/rtl")
 includes("userland")
 
 option("varch")
-    set_default("riscv64")
-    set_values("riscv64")
+    set_default("arm")
+    set_values("riscv64", "arm")
 
 option("vplatform")
-    set_default("qvirt-riscv64")
-    set_values("qvirt-riscv64")
+    set_default("integratorcp")
+    set_values("qvirt-riscv64", "integratorcp")
 
 
 
@@ -16,18 +16,16 @@ target("volcity")
     set_kind("phony")
     set_options("varch", "vplatform")
     add_deps("volkrnl")
-    add_deps("userland")
 
 
 
 
-toolchain("clang-riscv64")
+toolchain("clang-elf")
     set_kind("standalone")
     set_toolset("cc", "clang")
     set_toolset("as", "clang")
     set_toolset("ld", "ld.lld")
 toolchain_end()
-
 
 
 

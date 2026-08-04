@@ -49,8 +49,10 @@ typedef struct _RegisterState {
 
 
 
-
+// setup stuff (yeah bc it has setup in its name lmao im so funny snsmksl)
 void arch_setup_exceptions();
+
+// register shenanigans
 u64 arch_get_mhartid();
 u64 arch_get_mie();
 u64 arch_get_mepc();
@@ -68,13 +70,19 @@ void arch_set_mscratch(u64 value);
 void arch_set_mstatus(u64 value);
 
 
+// async traps
+void machine_timer_interrupt();
 
-
-
-
-
-
-
-
+// sync traps
+void ins_addr_misaligned();
+void ins_access_fault();
+void illegal_instruction();
+void load_address_misaligned();
+void load_access_fault();
+void store_address_misaligned();
+void store_access_fault();
+void ins_page_fault();
+void load_page_fault();
+void store_page_fault();
 
 #endif

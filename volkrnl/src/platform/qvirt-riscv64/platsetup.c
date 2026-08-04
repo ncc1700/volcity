@@ -22,17 +22,17 @@ static inline boolean retrieve_memory_info(FdtInfo* info, uptr* base, usize* siz
     if(result == FALSE){
         DEBUG_FAIL("unable to locate memory node\n");
         return FALSE;
-    } 
+    }
     u32 propOffset = 0;
     FdtProp* prop = dev_fdt_get_prop_ex(info, node, "reg", &propOffset);
     if(prop == NULL){
         DEBUG_FAIL("unable to locate reg prop in memory node\n");
         return FALSE;
     }
-    
+
     uptr array[4] = {0};
     dev_fdt_get_array_from_prop(info, propOffset, array, 4);
-  
+
     *base = ((u64)array[0] << 32 | (u32)array[1]);
     *size = ((u64)array[2] << 32 | (u32)array[3]);
     return TRUE;
@@ -44,7 +44,7 @@ static inline boolean retrieve_initrd_info(FdtInfo* info, uptr* base, usize* siz
     if(result == FALSE){
         DEBUG_FAIL("unable to locate chosen node\n");
         return FALSE;
-    }     
+    }
     u32 basePropOffset = 0;
     FdtProp* baseProp = dev_fdt_get_prop_ex(info, node, "linux,initrd-start", &basePropOffset);
     if(baseProp == NULL){
@@ -79,7 +79,7 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     if(arch_get_stvec() == 0x0 && arch_get_mtvec() == 0x0){
         kern_panic("mtvec and stvec are broken\n");
     }
-        rtl_printf("mtvec: 0x%lx\n", arch_get_mtvec());
+    rtl_printf("mtvec: 0x%lx\n", arch_get_mtvec());
 
     FdtInfo info = {0};
     boolean result = dev_fdt_init(&info, dTreeBase);
@@ -87,7 +87,7 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
         DEBUG_FAIL("invalid fdt! magic returned is 0x%x\n", info.header.magic);
         kern_panic("invalid fdt");
     }
-    
+
     uptr memBase = 0;
     usize memSize = 0;
     result = retrieve_memory_info(&info, &memBase, &memSize);
@@ -101,7 +101,7 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     if(result == FALSE){
         kern_panic("couldn't receive initrd info from device tree");
     }
-    
+
     // rtl_printf("memory base is 0x%lx, memory size is %ld\n", memBase, memSize);
     // rtl_printf("initrd base is 0x%lx, initrd size is %ld\n", initRdBase, initRdSize);
     // rtl_printf("dTreeLocation is 0x%lx\n", dTreeBase);
@@ -109,12 +109,12 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     initRdInfo.size = initRdSize;
 
     memMap.sizeOfMemory = memSize;
-    
+
     // very very messy code, bc im stupid =(
     memEntries[0].base = 0x0;
     memEntries[0].size = memBase;
     memEntries[0].type = MEM_TYPE_UNUSABLE;
-    
+
     memEntries[1].base = memBase;
     memEntries[1].size = kernelEndpoint - memBase;
     memEntries[1].type = MEM_TYPE_UNUSABLE;
@@ -122,7 +122,7 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     memEntries[2].base = kernelEndpoint;
     memEntries[2].size = initRdBase - kernelEndpoint;
     memEntries[2].type = MEM_TYPE_USABLE;
-    
+
     memEntries[3].base = initRdBase;
     memEntries[3].size = initRdSize;
     memEntries[3].type = MEM_TYPE_UNUSABLE;
@@ -140,10 +140,10 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     memEntries[6].type = MEM_TYPE_USABLE;
     memMap.entries = memEntries;
     memMap.amount = 7;
-    
-    
+
+
     //*(u64*)(0x90290292) = 'h';
-    
+
     kern_entry(&memMap, &initRdInfo);
     kern_panic("kern_entry exited!");
 }
