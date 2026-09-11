@@ -20,6 +20,6 @@ target("volkrnl")
     end
     add_cflags("-ffreestanding -nostdlib -Wall -Werror",
                     "-DPLATFORM=\"$(vplatform)\" -DARCH=\"$(varch)\"", {force = true})
-    add_asflags("-ffreestanding -nostdlib -Wall -Werror", {force = true})
+    add_asflags("-ffreestanding -nostdlib -Wall -Wextra -Werror", {force = true})
     add_ldflags("-nostdlib -Tvolkrnl/linker/$(vplatform)/linker.ld", {force = true})
 

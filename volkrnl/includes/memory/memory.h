@@ -13,7 +13,9 @@
 
 typedef enum _MemoryType {
     MEM_TYPE_USABLE,
-    MEM_TYPE_UNUSABLE
+    MEM_TYPE_UNUSABLE,
+    MEM_TYPE_MMIO,
+    MEM_TYPE_KERNEL
 } MemoryType;
 
 typedef struct _MemoryEntry {
@@ -33,10 +35,10 @@ typedef struct _MemoryMap {
     usize sizeOfMemory;
 } MemoryMap;
 
-
-
-
-
-
+boolean mem_setup_pmm(MemoryMap* memMap);
+void* mem_allocate_page();
+void* mem_allocate_pages(usize amountOfPages);
+boolean mem_free_page(void* address);
+boolean mem_free_pages(void* address, usize amountOfPages);
 
 #endif

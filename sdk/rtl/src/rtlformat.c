@@ -31,7 +31,7 @@ void rtl_format(char* buf, usize len, const char* format, va_list list){
                         num = va_arg(list, i64);
                     } else num = va_arg(list, i32);
                     usize digits = rtl_dec_to_cstring(num, buffer, 22);
-                    for(int i = 0; i < digits; i++){
+                    for(usize i = 0; i < digits; i++){
                         buf[bufIndex] = buffer[i];
                         bufIndex++;
                         if(bufIndex >= len){
@@ -47,7 +47,7 @@ void rtl_format(char* buf, usize len, const char* format, va_list list){
                         num = va_arg(list, u64);
                     } else num = va_arg(list, u32);
                     usize digits = rtl_dec_to_cstring(num, buffer, 22);
-                    for(int i = 0; i < digits; i++){
+                    for(usize i = 0; i < digits; i++){
                         buf[bufIndex] = buffer[i];
                         bufIndex++;
                         if(bufIndex >= len){
@@ -63,7 +63,7 @@ void rtl_format(char* buf, usize len, const char* format, va_list list){
                         num = va_arg(list, u64);
                     } else num = va_arg(list, u32);
                     usize digits = rtl_bin_to_cstring(num, buffer, 22);
-                    for(int i = 0; i < digits; i++){
+                    for(usize i = 0; i < digits; i++){
                         buf[bufIndex] = buffer[i];
                         bufIndex++;
                         if(bufIndex >= len){
@@ -79,7 +79,7 @@ void rtl_format(char* buf, usize len, const char* format, va_list list){
                         num = va_arg(list, u64);
                     } else num = va_arg(list, u32);
                     usize digits = rtl_hex_to_cstring(num, buffer, 22);
-                    for(int i = 0; i < digits; i++){
+                    for(usize i = 0; i < digits; i++){
                         buf[bufIndex] = buffer[i];
                         bufIndex++;
                         if(bufIndex >= len){

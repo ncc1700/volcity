@@ -113,11 +113,11 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     // very very messy code, bc im stupid =(
     memEntries[0].base = 0x0;
     memEntries[0].size = memBase;
-    memEntries[0].type = MEM_TYPE_UNUSABLE;
+    memEntries[0].type = MEM_TYPE_MMIO;
 
     memEntries[1].base = memBase;
     memEntries[1].size = kernelEndpoint - memBase;
-    memEntries[1].type = MEM_TYPE_UNUSABLE;
+    memEntries[1].type = MEM_TYPE_KERNEL;
     //rtl_printf("binary size is %ld, kernelEndpoint: 0x%x\n", memEntries[0].size, kernelEndpoint);
     memEntries[2].base = kernelEndpoint;
     memEntries[2].size = initRdBase - kernelEndpoint;

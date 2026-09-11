@@ -17,17 +17,14 @@ void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){
         DEBUG_INFO("base: 0x%lx, end: 0x%lx, size: %ld, type: %d\n",
             entry.base, entry.base + entry.size, entry.size, entry.type);
         if(entry.type == MEM_TYPE_USABLE){
-            DEBUG_INFO("testing if memory is writable!\n");
             usableMemory += entry.size;
         }
     }
 
 
 
-    DEBUG_INFO("usable memory: %d\n\n", usableMemory);
+    DEBUG_INFO("usable memory: %ld/%ld\n\n", usableMemory, memMap->sizeOfMemory);
     ustar_list_all_from_memory(rdInfo->base);
-    // *(u64*)0x90220290290 = 'h';
-    // DEBUG_FAIL("h\n");
     while(1){continue;}
 }
 
