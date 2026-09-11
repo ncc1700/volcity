@@ -70,9 +70,6 @@ void arch_set_mscratch(u64 value);
 void arch_set_mstatus(u64 value);
 
 
-// async traps
-void machine_timer_interrupt();
-
 // sync traps
 void ins_addr_misaligned();
 void ins_access_fault();

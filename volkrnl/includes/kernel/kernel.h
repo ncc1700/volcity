@@ -17,7 +17,6 @@ typedef struct _InitRdInfo {
 
 void kern_entry(MemoryMap* memMap, InitRdInfo* info);
 [[noreturn]] void kern_panic(const char* reason);
-void kern_begin_sched();
 void kern_parse_tar(uptr* address);
 
 
