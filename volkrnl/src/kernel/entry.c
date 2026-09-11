@@ -23,7 +23,7 @@ void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){
 
 
 
-    DEBUG_INFO("usable memory: %ld/%ld\n\n", usableMemory, memMap->sizeOfMemory);
+    DEBUG_INFO("usable memory: %ld\n\n", usableMemory);
     ustar_list_all_from_memory(rdInfo->base);
     while(1){continue;}
 }
