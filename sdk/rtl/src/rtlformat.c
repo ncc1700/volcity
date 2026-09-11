@@ -1,6 +1,5 @@
 #include <rtl/format.h>
 #include <rtl/string.h>
-#ifdef _VA_ARG
 
 #include <stdarg.h>
 
@@ -116,4 +115,3 @@ void rtl_format(char* buf, usize len, const char* format, va_list list){
 
 
 
-#endif

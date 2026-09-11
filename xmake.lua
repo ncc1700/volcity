@@ -1,14 +1,11 @@
 includes("volkrnl")
 includes("sdk/rtl")
-includes("userland")
 
 option("varch")
-    set_default("arm")
-    set_values("riscv64", "arm")
+    set_values("riscv64")
 
 option("vplatform")
-    set_default("integratorcp")
-    set_values("qvirt-riscv64", "integratorcp")
+    set_values("qvirt-riscv64")
 
 
 

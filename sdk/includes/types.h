@@ -23,6 +23,12 @@ typedef int64_t i64;
 
 typedef bool boolean;
 
+typedef uintptr_t uptr;
+typedef intptr_t iptr;
+typedef uptr usize;
+typedef iptr isize;
+
+
 #else
 
 
@@ -40,16 +46,6 @@ typedef long i64;
 
 typedef u8 boolean;
 
-#endif
-
-typedef float f32;
-typedef double f64;
-
-#define TRUE (1)
-#define FALSE (0)
-#define NULL ((void*)0)
-
-
 #ifdef BIT64
 typedef u64 uptr;
 typedef i64 iptr;
@@ -63,6 +59,18 @@ typedef i32 isize;
 #else
 #error "Volcity only supports either 64bit or 32bit systems"
 #endif
+
+#endif
+
+typedef float f32;
+typedef double f64;
+
+#define TRUE (1)
+#define FALSE (0)
+#define NULL ((void*)0)
+
+
+
 
 
 #endif

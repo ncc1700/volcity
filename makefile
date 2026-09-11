@@ -1,30 +1,28 @@
-QEMU_KERNEL=system/volkrnl.elf
-QEMU_INITRD=initfs.tar
+
+QEMU_MEMORY=1G
+QEMU_CPU=sifive-u54
+QEMU_KERNEL=output-qvirt-riscv64/system/volkrnl.elf
+QEMU_INITRD=output-qvirt-riscv64/initfs.tar
 
 qvirt-riscv64:
 	xmake f --varch=riscv64 --vplatform=qvirt-riscv64 -m debug
 	xmake build volcity
-
-integratorcp:
-	xmake f --varch=arm --vplatform=integratorcp -m debug
-	xmake build volcity
-
-
 
 
 qemu-riscv64:
 	make qvirt-riscv64
 	cp LICENSE.txt output-qvirt-riscv64/system/LICENSE.txt
 	rm -f output-qvirt-riscv64/makefile
-	echo -e "all:\n\t tar -cvf initfs.tar system/ sdk/" >> output-qvirt-riscv64/makefile
+	echo -e "all:\n\t tar -cvf initfs.tar system/" >> output-qvirt-riscv64/makefile
 	cd output-qvirt-riscv64 && make
-	qemu-system-riscv64 -cpu sifive-u54 -machine virt \
-		-bios none -kernel output-qvirt-riscv64/$(QEMU_KERNEL) -initrd output-qvirt-riscv64/$(QEMU_INITRD) -m 4.1M \
+	qemu-system-riscv64 -cpu $(QEMU_CPU) -machine virt \
+		-bios none -kernel $(QEMU_KERNEL) -initrd $(QEMU_INITRD) -m $(QEMU_MEMORY) \
 		-device ramfb -serial mon:stdio -display sdl -d unimp
 
-qemu-intgcp:
-	make integratorcp
-	qemu-system-arm -machine integratorcp -kernel output-integratorcp/$(QEMU_KERNEL) -serial mon:stdio -display sdl
+rv64-debug:
+	qemu-system-riscv64 -cpu $(QEMU_CPU) -machine virt \
+		-bios none -kernel $(QEMU_KERNEL) -initrd $(QEMU_INITRD)  -m $(QEMU_MEMORY) \
+		-device ramfb -serial mon:stdio -display sdl -S -s
 
 
 dump-dtb:
@@ -38,4 +36,3 @@ clean:
 	rm -rf initfs.tar
 	rm -rf .xmake
 	rm -rf build
-

@@ -71,7 +71,8 @@ void exception_parser() {
         u32 syncArrSize = sizeof(syncCallbacks) / sizeof(syncCallbacks[0]);
         rtl_print_dec("size: ", syncArrSize, TRUE);
         if(mcause > syncArrSize){
-            rtl_print("hm\n");
+           // rtl_print("hm\n");
+            kern_panic("invalid mcause returned at exception (bit not set)");
         } else syncCallbacks[mcause]();
     }
 }

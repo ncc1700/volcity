@@ -1,5 +1,5 @@
 #include <rtl/mem.h>
-
+#include <rtl/print.h>
 // slower functions, will optimize later on
 
 void* rtl_copy_mem(const void* src, void* dest, usize len){
@@ -15,7 +15,7 @@ void* rtl_set_mem(void* dest, usize value, usize len){
     i8* destInt = dest;
 
     for(usize i = 0; i < len; i++){
-        destInt[i] = value;
+        destInt[i] = (uint8_t)value;
     }
     return destInt;
 }

@@ -15,14 +15,11 @@ target("volkrnl")
     add_files("src/arch/$(varch)/*.S",
               "src/arch/$(varch)/*.c")
     if is_config("varch", "riscv64") then
-        add_cflags("-target riscv64-none-unknown-elf -DBIT64 -mcmodel=medany", {force = true})
-        add_asflags("-target riscv64-none-unknown-elf -DBIT64 -mcmodel=medany", {force = true})
-    elseif is_config("varch", "arm") then
-        add_cflags("-target arm-none-eabi -DBIT32", {force = true})
-        add_asflags("-target arm-none-eabi -DBIT32", {force = true})
+        add_cflags("-target riscv64-none-unknown-elf -mcmodel=medany", {force = true})
+        add_asflags("-target riscv64-none-unknown-elf -mcmodel=medany", {force = true})
     end
     add_cflags("-ffreestanding -nostdlib -Wall -Werror",
-                    "-D_VA_ARG -DPLATFORM=\"$(vplatform)\" -DARCH=\"$(varch)\"", {force = true})
+                    "-DPLATFORM=\"$(vplatform)\" -DARCH=\"$(varch)\"", {force = true})
     add_asflags("-ffreestanding -nostdlib -Wall -Werror", {force = true})
     add_ldflags("-nostdlib -Tvolkrnl/linker/$(vplatform)/linker.ld", {force = true})
 

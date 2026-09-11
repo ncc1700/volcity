@@ -7,10 +7,8 @@ void rtl_print_dec(const char* prev, usize dec, boolean shouldNewline);
 void rtl_print_hex(const char* prev, usize dec, boolean shouldNewline);
 
 
-#ifdef _VA_ARG
 #include <stdarg.h>
 void rtl_format(char* buf, usize len, const char* format, va_list list);
-#endif
 
 
 

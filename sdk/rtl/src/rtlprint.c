@@ -22,7 +22,6 @@ void rtl_print_hex(const char* prev, usize dec, boolean shouldNewline){
     if(shouldNewline) rtl_print("\n");
 }
 
-#ifdef _VA_ARG
 
 void rtl_printf(const char* format, ...){
     char buffer[240];
@@ -33,5 +32,4 @@ void rtl_printf(const char* format, ...){
     rtl_print(buffer);
 }
 
-#endif
 

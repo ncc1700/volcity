@@ -18,20 +18,20 @@ extern uptr k_end;
 
 static inline boolean retrieve_memory_info(FdtInfo* info, uptr* base, usize* size){
     u32 node = 0;
-    boolean result = dev_fdt_find_node(info, "memory@80000000", &node);
+    boolean result = fdt_find_node(info, "memory@80000000", &node);
     if(result == FALSE){
         DEBUG_FAIL("unable to locate memory node\n");
         return FALSE;
     }
     u32 propOffset = 0;
-    FdtProp* prop = dev_fdt_get_prop_ex(info, node, "reg", &propOffset);
+    FdtProp* prop = fdt_get_prop_ex(info, node, "reg", &propOffset);
     if(prop == NULL){
         DEBUG_FAIL("unable to locate reg prop in memory node\n");
         return FALSE;
     }
 
     uptr array[4] = {0};
-    dev_fdt_get_array_from_prop(info, propOffset, array, 4);
+    fdt_get_array_from_prop(info, propOffset, array, 4);
 
     *base = ((u64)array[0] << 32 | (u32)array[1]);
     *size = ((u64)array[2] << 32 | (u32)array[3]);
@@ -40,32 +40,32 @@ static inline boolean retrieve_memory_info(FdtInfo* info, uptr* base, usize* siz
 
 static inline boolean retrieve_initrd_info(FdtInfo* info, uptr* base, usize* size){
     u32 node = 0;
-    boolean result = dev_fdt_find_node(info, "chosen", &node);
+    boolean result = fdt_find_node(info, "chosen", &node);
     if(result == FALSE){
         DEBUG_FAIL("unable to locate chosen node\n");
         return FALSE;
     }
     u32 basePropOffset = 0;
-    FdtProp* baseProp = dev_fdt_get_prop_ex(info, node, "linux,initrd-start", &basePropOffset);
+    FdtProp* baseProp = fdt_get_prop_ex(info, node, "linux,initrd-start", &basePropOffset);
     if(baseProp == NULL){
         DEBUG_FAIL("unable to locate initrd-start prop in memory node\n");
         return FALSE;
     }
 
     uptr baseArray[2] = {0};
-    dev_fdt_get_array_from_prop(info, basePropOffset, baseArray, 2);
+    fdt_get_array_from_prop(info, basePropOffset, baseArray, 2);
     uptr baseLoc = ((u64)baseArray[0] << 32 | (u32)baseArray[1]);
     *base = baseLoc;
 
     u32 endPropOffset = 0;
-    FdtProp* endProp = dev_fdt_get_prop_ex(info, node, "linux,initrd-end", &endPropOffset);
+    FdtProp* endProp = fdt_get_prop_ex(info, node, "linux,initrd-end", &endPropOffset);
     if(endProp == NULL){
         DEBUG_FAIL("unable to locate initrd-end prop in memory node\n");
         return FALSE;
     }
 
     uptr endArray[2] = {0};
-    dev_fdt_get_array_from_prop(info, endPropOffset, endArray, 2);
+    fdt_get_array_from_prop(info, endPropOffset, endArray, 2);
     uptr endLoc = ((u64)endArray[0] << 32 | (u32)endArray[1]);
     *size = endLoc - baseLoc;
     return TRUE;
@@ -77,12 +77,12 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     plat_uart_setup();
     arch_setup();
     if(arch_get_stvec() == 0x0 && arch_get_mtvec() == 0x0){
-        kern_panic("mtvec and stvec are broken\n");
+        kern_panic("mtvec and stvec are broken");
     }
     rtl_printf("mtvec: 0x%lx\n", arch_get_mtvec());
 
     FdtInfo info = {0};
-    boolean result = dev_fdt_init(&info, dTreeBase);
+    boolean result = fdt_init(&info, dTreeBase);
     if(result == FALSE){
         DEBUG_FAIL("invalid fdt! magic returned is 0x%x\n", info.header.magic);
         kern_panic("invalid fdt");
@@ -136,7 +136,8 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     memEntries[5].type = MEM_TYPE_UNUSABLE;
 
     memEntries[6].base = dTreeBase + info.header.totalSize;
-    memEntries[6].size = (memBase + memSize) - memEntries[5].base;
+    // stupid hack, TODO: find why it actually breaks
+    memEntries[6].size = memSize - (memEntries[6].base - memBase);
     memEntries[6].type = MEM_TYPE_USABLE;
     memMap.entries = memEntries;
     memMap.amount = 7;
