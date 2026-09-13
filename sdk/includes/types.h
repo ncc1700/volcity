@@ -68,7 +68,7 @@ typedef double f64;
 #define TRUE (1)
 #define FALSE (0)
 #define NULL ((void*)0)
-
+#define ARR_SIZE(x) (sizeof(x) / sizeof(x[0]))
 
 
 

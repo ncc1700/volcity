@@ -12,7 +12,7 @@
 
 
 
-typedef struct _RegisterState {
+struct _RegisterState {
     u64 ra;
     u64 sp;
     u64 gp;
@@ -45,7 +45,7 @@ typedef struct _RegisterState {
     u64 s10;
     u64 s11;
     u64 s0;
-} RegisterState;
+};
 
 
 

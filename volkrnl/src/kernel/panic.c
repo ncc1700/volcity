@@ -12,7 +12,7 @@
     rtl_print(reason);
     rtl_print("\n------------------------------------------------------------------\n");
     rtl_print("REGISTER STATE: \n\n");
-    arch_print_registers();
+    arch_dump_and_print_registers();
     rtl_print("\n\n------------------------------------------------------------------\n");
     rtl_print("\nPlease restart.\n");
 

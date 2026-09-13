@@ -11,7 +11,7 @@ void arch_setup(){
 
 
 void arch_halt(){
+    __asm__("wfi");
     while(1){continue;}
-    // STUB
 }
 
