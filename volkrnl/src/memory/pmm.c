@@ -1,10 +1,15 @@
 #include <memory/memory.h>
 #include <rtl/print.h>
+#include <rtl/mem.h>
 
+struct _PageFreeList {
+    struct _PageFreeList* prev;
+    struct _PageFreeList* next;
+};
 
-
-u8* bitMap = NULL;
 static MemoryMap* memMap = NULL;
+static struct _PageFreeList* head = NULL;
+static struct _PageFreeList* tail = NULL;
 
 const char* memMapTypeToText[] = {
     [MEM_TYPE_USABLE] = "free",
@@ -14,6 +19,36 @@ const char* memMapTypeToText[] = {
 };
 
 
+// TODO: add spinlocks to make it SMP-safe
+
+static inline void add_page_to_freelist(uptr base){
+    struct _PageFreeList* page = (struct _PageFreeList*)base;
+    if(head == NULL){
+        head = page;
+    }
+    if(tail == NULL){
+        tail = page;
+    } else {
+        page->prev = tail;
+        tail->next = page;
+        tail = page;
+    }
+}
+
+static inline void* get_page_from_freelist(){
+    if(tail == NULL){
+        return NULL;
+    }
+    struct _PageFreeList* page = tail;
+    tail = tail->prev;
+    if(tail != NULL){
+        tail->next = NULL;
+    }
+    if(head == page){
+        head = NULL;
+    }
+    return (void*)page;
+}
 
 void mem_dbg_print_memmap(){
     const char* style = "--------------------------------------------------------------------------------\n";
@@ -25,7 +60,7 @@ void mem_dbg_print_memmap(){
     for(usize i = 0; i < memMap->amount; i++){
         MemoryEntry entry = memMap->entries[i];
         const char* memMapType;
-        if(entry.type >= ARR_SIZE(memMapTypeToText)){
+        if((usize)entry.type >= ARR_SIZE(memMapTypeToText)){
             memMapType = "unknown";
         } else {
             memMapType = memMapTypeToText[entry.type];
@@ -39,34 +74,35 @@ void mem_dbg_print_memmap(){
     rtl_print(style);
     rtl_printf("usable memory: %ld/%ld\n", usableMemory, memMap->sizeOfMemory);
     rtl_print(style);
-    rtl_print("\n");
 }
 
 boolean mem_setup_pmm(MemoryMap* memoryMap){
     memMap = memoryMap;
-    // TODO: setup the rest of the physical memory manager
+    usize amountOfPages = 0;
+
+    // this is really really slow with more and more amounts of memory
+    // i need to do this in a smarter way
+    for(usize i = 0; i < memMap->amount; i++){
+        MemoryEntry* entry = &memMap->entries[i];
+        if(entry->type != MEM_TYPE_USABLE) continue;
+        for(usize i = 0; i < entry->size; i+=PAGE_SIZE){
+            // HACK: idk what to do with parts of memory that don't align with a page
+            // its a waste of memory which is a shame, esp for more fragmented memory maps
+            // but for now this will do!
+            if(i + PAGE_SIZE > entry->size) break;
+            add_page_to_freelist(entry->base + i);
+            amountOfPages++;
+        }
+    }
+    DEBUG_INFO("amountOfPages: %d\n", amountOfPages);
     return TRUE;
 }
 
 void* mem_allocate_page(){
-    // STUB
-    return NULL;
-}
-
-void* mem_allocate_pages(usize amountOfPages){
-    (void)amountOfPages;
-    // STUB
-    return NULL;
+    return get_page_from_freelist();
 }
 
 boolean mem_free_page(void* address){
-    (void)address;
-    // STUB
-    return FALSE;
-}
-
-boolean mem_free_pages(void* address, usize amountOfPages){
-    (void)address;
-    // STUB
-    return FALSE;
+    add_page_to_freelist((uptr)address);
+    return TRUE;
 }

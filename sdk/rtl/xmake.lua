@@ -13,4 +13,3 @@ target("rtl")
     end
     add_cflags("-ffreestanding -nostdlib -Wall -Wextra -Werror", {force = true})
     add_asflags("-ffreestanding -nostdlib -Wall -Wextra -Werror", {force = true})
-

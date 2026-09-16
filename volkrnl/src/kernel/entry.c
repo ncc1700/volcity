@@ -16,10 +16,22 @@ void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){
         kern_panic("couldn't setup memory manager");
     }
     mem_dbg_print_memmap();
-    // this will cause a crash
+
+
+    usize amount = 0;
+    for(;;){
+        void* mem = mem_allocate_page();
+        if(mem == NULL) break;
+        rtl_zero_mem(mem, amount);
+        amount++;
+
+    }
+    DEBUG_INFO("amount of pages found: %ld\n", amount);
+    //this will cause a crash
     // u8 p = *(u8*)(0x2992829829189);
     // p++;
     // (void)p;
     ustar_list_all_from_memory(rdInfo->base);
+
     while(1){continue;}
 }

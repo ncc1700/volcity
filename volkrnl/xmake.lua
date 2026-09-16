@@ -18,8 +18,7 @@ target("volkrnl")
         add_cflags("-target riscv64-none-unknown-elf -mcmodel=medany", {force = true})
         add_asflags("-target riscv64-none-unknown-elf -mcmodel=medany", {force = true})
     end
-    add_cflags("-ffreestanding -nostdlib -Wall -Werror",
+    add_cflags("-ffreestanding -nostdlib -Wall -Wextra -Werror",
                     "-DPLATFORM=\"$(vplatform)\" -DARCH=\"$(varch)\"", {force = true})
     add_asflags("-ffreestanding -nostdlib -Wall -Wextra -Werror", {force = true})
     add_ldflags("-nostdlib -Tvolkrnl/linker/$(vplatform)/linker.ld", {force = true})
-

@@ -9,7 +9,10 @@
 
 #include <types.h>
 
-
+// because the pagefreelist used in the pmm is
+// 16 bytes large on most 64bit systems and 8 bytes large on
+// most 32bit systems, make sure the page size is 16 bytes or greater
+#define PAGE_SIZE 0x1000
 
 typedef enum _MemoryType {
     MEM_TYPE_USABLE,
