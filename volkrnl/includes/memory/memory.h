@@ -41,8 +41,6 @@ typedef struct _MemoryMap {
 void mem_dbg_print_memmap();
 boolean mem_setup_pmm(MemoryMap* memMap);
 void* mem_allocate_page();
-void* mem_allocate_pages(usize amountOfPages);
 boolean mem_free_page(void* address);
-boolean mem_free_pages(void* address, usize amountOfPages);
 
 #endif
