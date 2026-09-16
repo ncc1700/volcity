@@ -24,7 +24,6 @@ void kern_entry(MemoryMap* memMap, InitRdInfo* rdInfo){
         if(mem == NULL) break;
         rtl_zero_mem(mem, amount);
         amount++;
-
     }
     DEBUG_INFO("amount of pages found: %ld\n", amount);
     //this will cause a crash

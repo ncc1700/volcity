@@ -15,10 +15,9 @@
 #define PAGE_SIZE 0x1000
 
 typedef enum _MemoryType {
-    MEM_TYPE_USABLE,
-    MEM_TYPE_UNUSABLE,
-    MEM_TYPE_MMIO,
-    MEM_TYPE_KERNEL
+    MEM_TYPE_USED,
+    MEM_TYPE_FREE,
+    MEM_TYPE_MMIO
 } MemoryType;
 
 typedef struct _MemoryEntry {

@@ -12,10 +12,9 @@ static struct _PageFreeList* head = NULL;
 static struct _PageFreeList* tail = NULL;
 
 const char* memMapTypeToText[] = {
-    [MEM_TYPE_USABLE] = "free",
-    [MEM_TYPE_UNUSABLE] = "used",
+    [MEM_TYPE_USED] = "used",
+    [MEM_TYPE_FREE] = "free",
     [MEM_TYPE_MMIO] = "mmio",
-    [MEM_TYPE_KERNEL] = "kernel"
 };
 
 
@@ -67,7 +66,7 @@ void mem_dbg_print_memmap(){
         }
         rtl_printf("base: 0x%lx, end: 0x%lx, size: %ld, type: %s\n",
             entry.base, entry.base + entry.size, entry.size, memMapType);
-        if(entry.type == MEM_TYPE_USABLE){
+        if(entry.type == MEM_TYPE_FREE){
             usableMemory += entry.size;
         }
     }
@@ -84,7 +83,7 @@ boolean mem_setup_pmm(MemoryMap* memoryMap){
     // i need to do this in a smarter way
     for(usize i = 0; i < memMap->amount; i++){
         MemoryEntry* entry = &memMap->entries[i];
-        if(entry->type != MEM_TYPE_USABLE) continue;
+        if(entry->type != MEM_TYPE_FREE) continue;
         for(usize i = 0; i < entry->size; i+=PAGE_SIZE){
             // HACK: idk what to do with parts of memory that don't align with a page
             // its a waste of memory which is a shame, esp for more fragmented memory maps

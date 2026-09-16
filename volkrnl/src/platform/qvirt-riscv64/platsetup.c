@@ -111,34 +111,40 @@ void plat_setup(uptr dTreeBase, uptr kernelEndpoint){
     memMap.sizeOfMemory = memSize;
 
     // very very messy code, bc im stupid =(
+    // like this is genuinely horrible BUT
+    // it works and im too lazy to change it
+    // for UEFI based systems we would probably get a better
+    // memmap from EFI to our (non-existent, soon (tm)) bootloader
+    // and then pass it to the kernel later down the road
+    // this isn't UEFI however so uh enjoy this mess!
     memEntries[0].base = 0x0;
     memEntries[0].size = memBase;
     memEntries[0].type = MEM_TYPE_MMIO;
 
     memEntries[1].base = memBase;
     memEntries[1].size = kernelEndpoint - memBase;
-    memEntries[1].type = MEM_TYPE_KERNEL;
+    memEntries[1].type = MEM_TYPE_USED;
     //rtl_printf("binary size is %ld, kernelEndpoint: 0x%x\n", memEntries[0].size, kernelEndpoint);
     memEntries[2].base = kernelEndpoint;
     memEntries[2].size = initRdBase - kernelEndpoint;
-    memEntries[2].type = MEM_TYPE_USABLE;
+    memEntries[2].type = MEM_TYPE_FREE;
 
     memEntries[3].base = initRdBase;
     memEntries[3].size = initRdSize;
-    memEntries[3].type = MEM_TYPE_UNUSABLE;
+    memEntries[3].type = MEM_TYPE_USED;
 
     memEntries[4].base = initRdBase + initRdSize;
     memEntries[4].size = dTreeBase - memEntries[3].base;
-    memEntries[4].type = MEM_TYPE_USABLE;
+    memEntries[4].type = MEM_TYPE_FREE;
 
     memEntries[5].base = dTreeBase;
     memEntries[5].size = info.header.totalSize;
-    memEntries[5].type = MEM_TYPE_UNUSABLE;
+    memEntries[5].type = MEM_TYPE_USED;
 
     memEntries[6].base = dTreeBase + info.header.totalSize;
     // stupid hack, TODO: find why it actually breaks
     memEntries[6].size = memSize - (memEntries[6].base - memBase);
-    memEntries[6].type = MEM_TYPE_USABLE;
+    memEntries[6].type = MEM_TYPE_FREE;
     memMap.entries = memEntries;
     memMap.amount = 7;
 
